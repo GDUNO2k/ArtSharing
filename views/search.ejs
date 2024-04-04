@@ -1,0 +1,390 @@
+<%- include('./shared/_header.ejs') %>
+
+    <!-- search -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="v-search">
+          <div class="container">
+            <div class="row s-title">
+              <div class="col-lg-10 col-sm-9 col-xs-6">
+                Filter Search Results&nbsp;&nbsp;<i
+                  class="fa fa-chevron-up hidden-xs"
+                  aria-hidden="true"
+                ></i>
+              </div>
+              <div class="col-lg-2 col-sm-3 col-xs-6 pull-right">
+                <span class="hidden-xs">About</span> 60,254 results
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-2 col-sm-4 col-xs-6 search-group">
+                <div class="search-group-transform">
+                  <div class="s-s-title">
+                    <i class="cv cvicon-cv-calender"></i>
+                    <span>Upload Date:</span><span class="caret"></span>
+                  </div>
+                  <ul>
+                    <li><a href="#">Last hour</a></li>
+                    <li><a href="#">Today</a></li>
+                    <li><a href="#" class="active">This week</a></li>
+                    <li><a href="#">This month</a></li>
+                    <li><a href="#">This year</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-2 col-sm-4 col-xs-6 search-group">
+                <div class="search-group-transform">
+                  <div class="s-s-title">
+                    <i class="cv cvicon-cv-play-circle"></i> <span>Type:</span
+                    ><span class="caret"></span>
+                  </div>
+                  <ul>
+                    <li><a href="#" class="active">Video</a></li>
+                    <li><a href="#">Channel</a></li>
+                    <li><a href="#">Playlist</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-2 col-sm-4 search-group col-xs-12">
+                <div class="s-s-title title-transform">
+                  <i class="cv cvicon-cv-watch-later"></i>Duration:
+                  <span class="visible-xs">(Minutes)</span>
+                </div>
+                <ul class="hidden-xs">
+                  <li><a href="#">Short (&lt; 5 min)</a></li>
+                  <li><a href="#" class="active">Medium (&lt; 10 min)</a></li>
+                  <li><a href="#">Long (&gt; 20 min)</a></li>
+                </ul>
+                <div class="visible-xs">
+                  <div class="duration-range"><input type="text" /></div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-sm-4 search-group col-xs-12">
+                <div class="search-group-transform">
+                  <div class="s-s-title">
+                    <i class="cv cvicon-cv-relevant"></i> <span>Sort by:</span
+                    ><span class="caret"></span>
+                  </div>
+                  <ul>
+                    <li><a href="#">Relevance</a></li>
+                    <li><a href="#">Upload Date</a></li>
+                    <li><a href="#" class="active">View Count</a></li>
+                    <li><a href="#">Rating</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-4 search-group col-xs-12">
+                <div class="s-s-title title-transform">
+                  <i class="cv cvicon-cv-star"></i> Features
+                </div>
+                <div class="features">
+                  <a href="#"><div class="feature">4K</div></a>
+                  <a href="#"><div class="feature active">HD</div></a>
+                  <a href="#"><div class="feature">3D</div></a>
+                  <div class="clearfix"></div>
+                </div>
+                <ul class="hidden-xs">
+                  <li><a href="#">Subtitles</a></li>
+                  <li><a href="#">Purchased</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row clearsearch">
+              <div class="col-xs-6 visible-xs">
+                <a href="#"><i class="cv cvicon-cv-next"></i>Collapse</a>
+              </div>
+              <div class="col-lg-12 col-sm-12 col-sx-6 ta-r">
+                <a href="#"
+                  ><i class="cv cvicon-cv-cancel"></i> Clear all filters</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /search -->
+
+    <div class="content-wrapper head-div">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Featured Videos -->
+            <div class="content-block">
+              <div class="cb-header">
+                <div class="row">
+                  <div class="col-lg-10 col-xs-10">
+                    <ul class="list-inline">
+                      <li>Search Results <a href="#">"Uncharted 4"</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-2 col-xs-2">
+                    <div class="btn-group pull-right bg-clean">
+                      <button
+                        type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Sort by <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a href="#"
+                            ><i class="cv cvicon-cv-relevant"></i> Relevant</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#"
+                            ><i class="cv cvicon-cv-calender"></i> Recent</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#"
+                            ><i class="cv cvicon-cv-view-stats"></i> Viewed</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#"
+                            ><i class="cv cvicon-cv-star"></i> Top Rated</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#"
+                            ><i class="cv cvicon-cv-watch-later"></i> Longest</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="single-video video-mobile-02">
+                <div class="row">
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-4.png" alt=""
+                          /></a>
+                          <div class="time">15:19</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >Cornfield Chase Outlast II Official Gameplay</a
+                          >
+                        </div>
+                        <div class="v-views">2,729,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 55%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-5.png" alt=""
+                          /></a>
+                          <div class="time">4:23</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >Amazing Facts About Nebulas ...</a
+                          >
+                        </div>
+                        <div class="v-views">429,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 79%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-6.png" alt=""
+                          /></a>
+                          <div class="time">7:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >3DS Games Of 2016 that blew our mind</a
+                          >
+                        </div>
+                        <div class="v-views">630,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 83%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-7.png" alt=""
+                          /></a>
+                          <div class="time">27:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >No Man's Sky: 21 Minutes of Gameplay</a
+                          >
+                        </div>
+                        <div class="v-views">10,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 43%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-8.png" alt=""
+                          /></a>
+                          <div class="time">5:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >There Can Only Be One! Introducing Tanc ...</a
+                          >
+                        </div>
+                        <div class="v-views">453,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 79%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-9.png" alt=""
+                          /></a>
+                          <div class="time">34:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >Game of Thrones Season 6: Event Promo</a
+                          >
+                        </div>
+                        <div class="v-views">1,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 93%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-10.png" alt=""
+                          /></a>
+                          <div class="time">6:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >Mirror's Edge Catalyst Beta: PS4 vs Xbox One</a
+                          >
+                        </div>
+                        <div class="v-views">420,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 73%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="h-video row">
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-img">
+                          <a href="single-video-tabs.html"
+                            ><img src="images/sv-11.png" alt=""
+                          /></a>
+                          <div class="time">21:18</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <div class="v-desc">
+                          <a href="single-video-tabs.html"
+                            >Cornfield Chase Outlast II Official Gameplay</a
+                          >
+                        </div>
+                        <div class="v-views">50,347 views</div>
+                        <div class="v-percent">
+                          <span class="v-circle"></span> 94%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Featured Videos -->
+
+            <div class="content-block head-div head-arrow mb-40">
+              <div class="head-arrow-icon">
+                <i class="cv cvicon-cv-next"></i>
+              </div>
+            </div>
+
+            <!-- pagination -->
+            <div class="v-pagination hidden-xs">
+              <ul class="list-inline">
+                <li class="v-pagination-prev">
+                  <a href="#"><i class="cv cvicon-cv-previous"></i></a>
+                </li>
+                <li class="v-pagination-first"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">10</a></li>
+                <li class="v-pagination-skin visible-xs">
+                  <a href="#">Skip 5 Pages</a>
+                </li>
+                <li class="v-pagination-next">
+                  <a href="#"><i class="cv cvicon-cv-next"></i></a>
+                </li>
+              </ul>
+            </div>
+            <!-- /pagination -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('./shared/_footer.ejs') %>
+  </body>
+</html>
