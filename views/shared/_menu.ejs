@@ -47,14 +47,18 @@
                       aria-expanded="false"
                     >
                       <i class="cv cvicon-cv-video-file"></i
-                      >&nbsp;&nbsp;&nbsp;<span class="caret"></span></button
-                    >
+                      >&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                    </button>
                   </div>
                   <!-- /btn-group -->
                 </div>
               </div>
             </form>
           </div>
+
+          <!-- if logged in -->
+          <% if(req.user) { %>
+
           <div class="col-lg-2 col-sm-4 hidden-xs">
             <div class="avatar pull-left">
               <img src="images/avatar.png" alt="avatar" />
@@ -70,16 +74,28 @@
                   aria-haspopup="true"
                   aria-expanded="true"
                 >
-                  Bailey
+                  <%= req.user.name %>
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="/auth/logout">Log out</a></li>
+                  <li><a href="/profile">Edit profile</a></li>
+                  <li><a href="/logout">Log out</a></li>
                 </ul>
               </div>
             </div>
             <div class="clearfix"></div>
           </div>
+          <% } else { %>
+          <!-- not logged in -->
+          <div class="col-lg-2 col-sm-12 hidden-xs">
+            <div class="loginsignup pull-right">
+              <a href="/login">Login</a>
+              .
+              <a href="/register">Register</a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <% } %>
         </div>
         <div class="hidden-xs">
           <a href="upload.html">

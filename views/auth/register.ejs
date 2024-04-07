@@ -1,0 +1,114 @@
+<%- include("../shared/_header.ejs") %>
+
+    <div class="container-fluid bg-image">
+      <div class="row">
+        <div class="login-wraper">
+          <div class="hidden-xs">
+            <img src="images/login.jpg" alt="" />
+          </div>
+          <div class="banner-text hidden-xs">
+            <div class="line"></div>
+            <div class="b-text">
+              Explore
+              <span class="color-active"
+                >millions<br />
+                of</span
+              >
+              <span class="color-b1">a</span>
+              <span class="color-b2">r</span
+              ><span class="color-b3">t</span
+              ><span class="color-active">works</span> for free.
+            </div>
+            <div class="overtext">Over 6000 arts uploaded Daily.</div>
+          </div>
+          <div class="login-window">
+            <div class="l-head">Sign Up for Free</div>
+            <div class="l-form">
+              <form action="/register" method="post">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Duong"
+                    name="name"
+                  />
+                  <% if (errors.name) { %>
+                    <p class="form-text text-danger"><%= errors.name.msg %></p>
+                  <% } %>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    placeholder="sample@gmail.com"
+                    name="email"
+                  />
+                    <% if (errors.email) { %>
+                    <p class="form-text text-danger"><%= errors.email.msg %></p>
+                  <% } %>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="**********"
+                    name="password"
+                  />
+                    <% if (errors.password) { %>
+                    <p class="form-text text-danger"><%= errors.password.msg %></p>
+                  <% } %>
+                </div>
+                <div class="form-group">
+                  <label for="cf_password">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="cf_password"
+                    placeholder="**********"
+                    name="cf_password"
+                  />
+                    <% if (errors.cf_password) { %>
+                    <p class="form-text text-danger"><%= errors.cf_password.msg %></p>
+                  <% } %>
+                </div>
+                <div class="row">
+                  <div class="col-lg-7">
+                    <button type="submit" class="btn btn-cv1">Sign Up</button>
+                  </div>
+                  <div class="hidden-xs">
+                    <div class="col-lg-1 ortext">or</div>
+                    <div class="col-lg-4 signuptext">
+                      <a href="login.html">Log In</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs">
+                  <div class="col-lg-12 forgottext">
+                    <a href="#"
+                      >By clicking "Sign Up" I agree to circle's Terms of
+                      Service.</a
+                    >
+                  </div>
+                </div>
+                <div class="visible-xs text-center mt-30">
+                  <span class="forgottext"
+                    ><a href="#">Already have an account?</a></span
+                  >
+                  <span class="signuptext"><a href="#">Login here</a></span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("../shared/_footer.ejs") %>
+  </body>
+</html>

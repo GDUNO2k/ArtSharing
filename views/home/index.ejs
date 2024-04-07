@@ -792,7 +792,7 @@
         </div>
         <!-- /Popular Playlists -->
 
-        <!-- Popular Channels -->
+        <!-- Popular Artist -->
         <div class="content-block head-div head-arrow">
           <div class="head-arrow-icon">
             <i class="cv cvicon-cv-next"></i>
@@ -802,7 +802,7 @@
               <div class="col-lg-10 col-sm-10 col-xs-8">
                 <ul class="list-inline">
                   <li>
-                    <a href="#" class="color-active">Popular Channels</a>
+                    <a href="#" class="color-active">Popular Artists</a>
                   </li>
                 </ul>
               </div>
@@ -851,76 +851,30 @@
           </div>
           <div class="cb-content chanels-row">
             <div class="row">
+              <% for(const artist of artists) { %>
               <div class="col-lg-2 col-sm-4 col-xs-4">
                 <div class="b-chanel">
-                  <a href="#">
+                  <a href="/artist/<%= artist._id %>">
+                    <!-- if avatar -->
+                    <% if(artist.avatar) { %>
+                    <img src="<%= artist.avatar %>" alt="" />
+                    <!-- else  -->
+                    <% } else { %>
                     <img src="images/chanel-1.png" alt="" />
+                    <% } %>
+
                     <div class="hover">
-                      <span>Ray Simpson</span>
+                      <span><%= artist.name %></span>
                       <span><i class="cv cvicon-cv-liked"></i> 5K</span>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="col-lg-2 col-sm-4 col-xs-4">
-                <div class="b-chanel">
-                  <a href="#">
-                    <img src="images/chanel-2.png" alt="" />
-                    <div class="hover">
-                      <span>Ray</span>
-                      <span><i class="cv cvicon-cv-liked"></i> 215K</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-4 col-xs-4">
-                <div class="b-chanel">
-                  <a href="#">
-                    <img src="images/chanel-3.png" alt="" />
-                    <div class="hover">
-                      <span>Simpson</span>
-                      <span><i class="cv cvicon-cv-liked"></i> 21</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-4 col-xs-4">
-                <div class="b-chanel">
-                  <a href="#">
-                    <img src="images/chanel-4.png" alt="" />
-                    <div class="hover">
-                      <span>Ray Simpson</span>
-                      <span><i class="cv cvicon-cv-liked"></i> 134</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-4 col-xs-4">
-                <div class="b-chanel">
-                  <a href="#">
-                    <img src="images/chanel-5.png" alt="" />
-                    <div class="hover">
-                      <span>Simpson</span>
-                      <span><i class="cv cvicon-cv-liked"></i> 1.6M</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-4 col-xs-4">
-                <div class="b-chanel">
-                  <a href="#">
-                    <img src="images/chanel-6.png" alt="" />
-                    <div class="hover">
-                      <apan>Ray</apan>
-                      <span><i class="cv cvicon-cv-liked"></i> 265K</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
+              <% } %>
             </div>
           </div>
         </div>
-        <!-- /Popular Channels -->
+        <!-- /Popular Artist -->
 
         <!-- pagination -->
         <div class="v-pagination">

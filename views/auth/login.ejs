@@ -1,0 +1,102 @@
+<%- include("../shared/_header.ejs") %>
+
+<div class="container-fluid bg-image">
+  <div class="row">
+    <div class="login-wraper">
+      <div class="hidden-xs">
+        <img src="images/login.jpg" alt="" />
+      </div>
+      <div class="banner-text hidden-xs">
+        <div class="line"></div>
+        <div class="b-text">
+          Watch
+          <span class="color-active"
+            >millions<br />
+            of</span
+          >
+          <span class="color-b1">v</span><span class="color-b2">i</span
+          ><span class="color-b3">de</span
+          ><span class="color-active">os</span> for free.
+        </div>
+        <div class="overtext">Over 6000 videos uploaded Daily.</div>
+      </div>
+      <div class="login-window">
+        <div class="l-head">Log Into Your Circle Account</div>
+        <div class="l-form">
+          <% if (errors.failed) { %>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Error!</strong>
+            <%= errors.failed %>
+          </div>
+          <% } %>
+
+          <form action="/login" method="post">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="sample@gmail.com"
+                name="email"
+              />
+              <% if (errors.email) { %>
+              <p class="form-text text-danger"><%= errors.email.msg %></p>
+              <% } %>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="**********"
+                name="password"
+              />
+              <% if (errors.password) { %>
+              <p class="form-text text-danger"><%= errors.password.msg %></p>
+              <% } %>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-7">
+                <button type="submit" class="btn btn-cv1">Login</button>
+              </div>
+              <div class="hidden-xs">
+                <div class="col-lg-1 ortext">or</div>
+                <div class="col-lg-4 signuptext">
+                  <a href="/register">Register</a>
+                </div>
+              </div>
+            </div>
+            <div class="row hidden-xs">
+              <div class="col-lg-12 forgottext">
+                <a href="#">Forgot Username or Password?</a>
+              </div>
+            </div>
+            <div class="row visible-xs">
+              <div class="col-xs-6">
+                <div class="forgottext"><a href="#">Forgot Password?</a></div>
+              </div>
+              <div class="col-xs-6">
+                <div class="signuptext text-right">
+                  <a href="signup.html">Sign Up</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("../shared/_footer.ejs") %>
