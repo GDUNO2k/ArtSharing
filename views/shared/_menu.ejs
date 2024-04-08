@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="btn-color-toggle">
-      <img src="images/icon_bulb_light.png" alt="" />
+      <img src="/images/icon_bulb_light.png" alt="" />
     </div>
     <div class="navbar-container">
       <div class="container">
@@ -14,7 +14,7 @@
           </div>
           <div class="col-lg-1 col-sm-2 col-xs-6">
             <a class="navbar-brand" href="/">
-              <img src="images/logo.svg" alt="Project name" class="logo" />
+              <img src="/images/logo.svg" alt="Project name" class="logo" />
               <span>Circle</span>
             </a>
           </div>
@@ -56,46 +56,8 @@
             </form>
           </div>
 
-          <!-- if logged in -->
-          <% if(req.user) { %>
-
-          <div class="col-lg-2 col-sm-4 hidden-xs">
-            <div class="avatar pull-left">
-              <img src="images/avatar.png" alt="avatar" />
-              <span class="status"></span>
-            </div>
-            <div class="selectuser pull-left">
-              <div class="btn-group pull-right dropdown">
-                <button
-                  class="btn btn-default dropdown-toggle"
-                  type="button"
-                  id="dropdownMenu1"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="true"
-                >
-                  <%= req.user.name %>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Edit profile</a></li>
-                  <li><a href="/logout">Log out</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <% } else { %>
-          <!-- not logged in -->
-          <div class="col-lg-2 col-sm-12 hidden-xs">
-            <div class="loginsignup pull-right">
-              <a href="/login">Login</a>
-              .
-              <a href="/register">Register</a>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <% } %>
+        <%- include("./_user_information.ejs") %>
+          
         </div>
         <div class="hidden-xs">
           <a href="upload.html">

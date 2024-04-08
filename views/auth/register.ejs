@@ -4,7 +4,7 @@
       <div class="row">
         <div class="login-wraper">
           <div class="hidden-xs">
-            <img src="images/login.jpg" alt="" />
+            <img src="/images/login.jpg" alt="" />
           </div>
           <div class="banner-text hidden-xs">
             <div class="line"></div>
@@ -24,7 +24,7 @@
           <div class="login-window">
             <div class="l-head">Sign Up for Free</div>
             <div class="l-form">
-              <form action="/register" method="post">
+              <form action="/auth/register" method="post">
                 <div class="form-group">
                   <label for="name">Name</label>
                   <input
@@ -33,6 +33,7 @@
                     id="name"
                     placeholder="Duong"
                     name="name"
+                    value="<%= req.body.name %>"
                   />
                   <% if (errors.name) { %>
                     <p class="form-text text-danger"><%= errors.name.msg %></p>
@@ -46,6 +47,8 @@
                     id="email"
                     placeholder="sample@gmail.com"
                     name="email"
+                    value="<%= req.body.email %>"
+                    
                   />
                     <% if (errors.email) { %>
                     <p class="form-text text-danger"><%= errors.email.msg %></p>

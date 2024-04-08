@@ -1,14 +1,13 @@
-const express = require("express");
-const router = new express.Router();
+
 const User = require("../models/user.model");
 const { check, validationResult } = require("express-validator");
 
 // show form to register
-router.get("/register", (req, res) => {
+function register(req, res) {
   res.render("auth/register", { req, errors: {} });
-});
+};
 
-const validateUser = [
+const validateRegister = [
   check("name")
     .trim() // remove leading and trailing spaces
     .notEmpty()
@@ -47,8 +46,9 @@ const validateUser = [
       return true;
     }),
 ];
-// handle create new user
-router.post("/register", validateUser, async (req, res) => {
+
+// handle register
+async function handleRegister (req, res) {
   // validate user data
   const errors = validationResult(req);
 
@@ -65,9 +65,10 @@ router.post("/register", validateUser, async (req, res) => {
 
   // redirect login with message
   return res.redirect("/login");
-});
+};
 
-router.get("/login", (req, res) => {
+// show login form
+function login (req, res) {
   const loggedInUser = req.session.user;
 
   if (loggedInUser) {
@@ -75,7 +76,7 @@ router.get("/login", (req, res) => {
   }
 
   res.render("auth/login",  {req, errors: {} });
-});
+};
 
 const validateLogin = [
   check("email")
@@ -91,7 +92,8 @@ const validateLogin = [
     .withMessage("Password must be more than 6 characters"),
 ];
 
-router.post("/login", validateLogin, async (req, res) => {
+// handle login
+async function handleLogin(req, res) {
   // validate user data
   const errors = validationResult(req);
 
@@ -106,23 +108,33 @@ router.post("/login", validateLogin, async (req, res) => {
     password: req.body.password,
   });
   if (!user) {
-    errors.failed = "Invalid email or password";
+    req.flash.error('Invalid email or password!');
 
     return res.render("auth/login", { errors });
   }
 
-  const { name, email } = user;
-
   // create session
-  req.session.user = { name, email };
+  req.session.email = user.email;
 
   // redirect user with message
   res.redirect("/");
-});
+};
 
-router.get("/logout", (req, res) => {
+// logout
+function logout (req, res) {
   req.session.destroy();
-  res.redirect("/login");
-});
+  res.redirect("/auth/login");
+};
 
-module.exports = router;
+
+module.exports = {
+  register,
+  validateRegister,
+  handleRegister,
+
+  login,
+  validateLogin,
+  handleLogin,
+
+  logout
+};

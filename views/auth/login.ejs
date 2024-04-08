@@ -4,7 +4,7 @@
   <div class="row">
     <div class="login-wraper">
       <div class="hidden-xs">
-        <img src="images/login.jpg" alt="" />
+        <img src="/images/login.jpg" alt="" />
       </div>
       <div class="banner-text hidden-xs">
         <div class="line"></div>
@@ -23,22 +23,7 @@
       <div class="login-window">
         <div class="l-head">Log Into Your Circle Account</div>
         <div class="l-form">
-          <% if (errors.failed) { %>
-          <div class="alert alert-danger alert-dismissible" role="alert">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Error!</strong>
-            <%= errors.failed %>
-          </div>
-          <% } %>
-
-          <form action="/login" method="post">
+          <form action="/auth/login" method="post">
             <div class="form-group">
               <label for="email">Email</label>
               <input
@@ -47,6 +32,7 @@
                 id="email"
                 placeholder="sample@gmail.com"
                 name="email"
+                value="<%= req.body.email %>"
               />
               <% if (errors.email) { %>
               <p class="form-text text-danger"><%= errors.email.msg %></p>
@@ -73,7 +59,7 @@
               <div class="hidden-xs">
                 <div class="col-lg-1 ortext">or</div>
                 <div class="col-lg-4 signuptext">
-                  <a href="/register">Register</a>
+                  <a href="/auth/register">Register</a>
                 </div>
               </div>
             </div>
