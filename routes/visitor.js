@@ -43,6 +43,8 @@ router.get("/search", (req, res) => {
     res.render("search");
 });
 
-// arts
+// artworks
+const artworkController = require("../controllers/artwork.controller")
+router.get('/artwork/:id', artworkController.show)
 
 module.exports = router;

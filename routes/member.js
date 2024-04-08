@@ -35,7 +35,23 @@ router.post('/user/change-password',
     userController.validatePassword,
     userController.updatePassword
 );
-router.get('/user/upload',userController.upload);
+
+// user - home
+router.get('/user/index', userController.index);
+
+// create artwork
+const artworkController = require("../controllers/artwork.controller")
+router.get('/artwork/create', artworkController.create);
+router.post('/artwork/create', 
+    upload.single('file'),
+    artworkController.validateArtwork,
+    artworkController.store
+);
+// view all artworks - with pagination
+
+// update artwork
+// delete artwork
+
 
 /* ----------- END my space */
 

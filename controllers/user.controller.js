@@ -93,6 +93,9 @@ async function updatePassword(req, res) {
 }
 
 //
+function index(req, res) {
+  return res.render("user/index");
+}
 
 
 module.exports = {
@@ -104,7 +107,9 @@ module.exports = {
   validatePassword,
   updatePassword,
 
-  upload,
-  validateUpload,
-  handleUpload,
+  index, 
+
+  // upload,
+  // validateUpload,
+  // handleUpload,
 }

@@ -1,0 +1,73 @@
+<%- include("../shared/_header.ejs")  %>
+
+<div class="content-wrapper upload-page edit-page">
+    
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>New Artwork</h1>
+                
+                <form class="u-form" action="/artwork/create" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="e0">Upload Artwork <span class="text-danger">*</span></label>
+                                <input type="file" name='file' class="form-control" id="e0" placeholder="Choose image (PNG, JPEG)">
+                                <% if (errors.file) { %>
+                                    <p class="form-text text-danger"><%= errors.file.msg %></p>
+                                <% } %>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="e1">Artwork Title<span class="text-danger">*</span></label>
+                                    <input type="text" name="title" class="form-control" id="e1" placeholder="Rocket League Pro Championship Gameplay (36 characters remaining)">
+                                <% if (errors.title) { %>
+                                    <p class="form-text text-danger"><%= errors.title.msg %></p>
+                                <% } %>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="e2">Description</label>
+                                    <textarea class="form-control" name="description" id="e2" rows="3">Description</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="category">Category<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="category" name="category">
+                                        <option>English</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                    <% if (errors.category) { %>
+                                    <p class="form-text text-danger"><%= errors.category.msg %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="e7">Tags (13 Tags Remaining)</label>
+                                    <input type="text" class="form-control" id="e7" name="tags" placeholder="Gaming, PS4">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="u-area mt-small">
+                            <button class="btn btn-primary u-btn">Save</button>
+                        </div>
+                    </form>
+                    
+                    <div class="u-terms">
+                        <p>By submitting your videos to circle, you acknowledge that you agree to circle's <a href="#">Terms of Service</a> and <a href="#">Community Guidelines</a>.</p>
+                        <p class="hidden-xs">Please be sure not to violate others' copyright or privacy rights. Learn more</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include("../shared/_footer.ejs")  %>

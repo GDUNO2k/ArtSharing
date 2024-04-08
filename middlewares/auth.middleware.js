@@ -15,8 +15,9 @@ async function getUser(req, res, next) {
 
 // redirect to login if not logged in
 function requireLogin(req, res, next) {
+  
   if (!req.user) {
-    return res.redirect("/auth/login");
+    return res.redirect("/auth/login?url=" + req.url);
   }
 
   next();
