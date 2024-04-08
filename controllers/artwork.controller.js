@@ -44,8 +44,14 @@ async function store(req,res) {
     res.redirect("/artwork/" + artwork._id);
 }
 
-async function show(req,res) {
-    res.render("artwork/show");
+async function show(req,res) { 
+    const artwork = await Artwork.findById(req.params.id).exec();
+
+    // increase no. views
+    artwork.noViews++;
+    await artwork.save();
+
+    return res.render("artwork/show", { artwork });
 }
 
 module.exports = {

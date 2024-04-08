@@ -47,6 +47,11 @@ router.post('/artwork/create',
     artworkController.validateArtwork,
     artworkController.store
 );
+
+// artworks
+// // const artworkController = require("../controllers/artwork.controller")
+// router.get('/artwork/:id', artworkController.show)
+
 // view all artworks - with pagination
 
 // update artwork

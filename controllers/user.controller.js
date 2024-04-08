@@ -93,8 +93,10 @@ async function updatePassword(req, res) {
 }
 
 //
-function index(req, res) {
-  return res.render("user/index");
+const Artwork = require("../models/artwork.model");
+async function index(req, res) {
+  const artworks = await Artwork.find({ createdBy: req.user._id});
+  return res.render("user/index", {artworks});
 }
 
 

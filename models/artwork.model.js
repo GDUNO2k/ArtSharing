@@ -20,9 +20,17 @@ const artworkSchema = new mongoose.Schema({
   tags: {
     type: String,
   },
-  createBy: {
+  createdBy: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User'
+  },
+  noViews: {
+    type: Number,
+    default: 0,
+  },
+  noLikes:  {
+    type: Number,
+    default: 0,
   }
 }, {timestamps: true});
 
