@@ -47,6 +47,23 @@ router.post('/artwork/create',
     artworkController.validateArtwork,
     artworkController.store
 );
+router.get('/artwork/:id/edit', 
+    artworkController.findOrFail,
+    artworkController.requireOwner,
+    artworkController.edit
+);
+router.post('/artwork/:id/edit', 
+    artworkController.findOrFail,
+    artworkController.requireOwner,
+    upload.single('file'),
+    artworkController.validateArtwork,
+    artworkController.update
+);
+router.post('/artwork/:id/destroy', 
+    artworkController.findOrFail,
+    artworkController.requireOwner,
+    artworkController.destroy
+);
 
 // artworks
 // // const artworkController = require("../controllers/artwork.controller")

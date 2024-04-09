@@ -1,0 +1,60 @@
+<form class="u-form" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-lg-12">
+            <% if (artwork.path) { %>
+                <div class="form-group">
+                    <img src="<%= artwork.path %>" alt="">
+                </div>
+            <% } %>
+            
+            <div class="form-group">
+                <label for="e0">Upload Artwork <span class="text-danger">*</span></label>
+                <input type="file" name='file' class="form-control" id="e0" placeholder="Choose image (PNG, JPEG)">
+                <% if (errors.file) { %>
+                    <p class="form-text text-danger"><%= errors.file.msg %></p>
+                <% } %>
+                </div>
+            </div>
+            
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="e1">Artwork Title<span class="text-danger">*</span></label>
+                    <input type="text" name="title" value="<%= artwork.title %>" class="form-control" id="e1" placeholder="Title" >
+                    <% if (errors.title) { %>
+                        <p class="form-text text-danger"><%= errors.title.msg %></p>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="e2">Description</label>
+                    <textarea class="form-control" name="description" id="e2" rows="3" placeholder="Description"><%= artwork.description %></textarea>
+                </div>
+            </div>
+            
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="category">Category<span class="text-danger">*</span></label>
+                    <select class="form-control" id="category" name="category">
+                        <option>English</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                    <% if (errors.category) { %>
+                    <p class="form-text text-danger"><%= errors.category.msg %></p>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="e7">Tags (13 Tags Remaining)</label>
+                    <input type="text" class="form-control" id="e7" name="tags" value="<%= artwork.tags %>" placeholder="Gaming, PS4" >
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="u-area mt-small">
+            <button class="btn btn-primary u-btn">Save</button>
+        </div>
+</form>

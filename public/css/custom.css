@@ -2,3 +2,21 @@
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+.c-avatar img {
+    max-width: 176px;
+    max-height: 157px;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}

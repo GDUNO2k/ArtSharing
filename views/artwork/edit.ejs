@@ -1,0 +1,27 @@
+<%- include("../shared/_header.ejs")  %>
+
+<div class="content-wrapper upload-page edit-page">
+    
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Edit Artwork</h1>
+
+                <div class="pull-right">
+                    <form method="post" action="/artwork/<%= artwork._id %>/destroy">
+                            <button type="submit" onclick="return confirm('Are u sure want to delete?')" class="btn btn-secondary btn-sm"><i class="fa fa-trash" style="font-size: 24px;"></i>  Delete</button>
+                    </form>
+                </div>
+                
+                <%- include("./_form.ejs")  %>
+                    
+                <div class="u-terms">
+                    <p>By submitting your artworks to circle, you acknowledge that you agree to circle's <a href="#">Terms of Service</a> and <a href="#">Community Guidelines</a>.</p>
+                    <p class="hidden-xs">Please be sure not to violate others' copyright or privacy rights. Learn more</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../shared/_footer.ejs")  %>

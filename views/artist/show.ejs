@@ -1,6 +1,8 @@
-<%- include("../shared/_header.ejs") %>
-<link href="/css/font-circle-video.css" rel="stylesheet">
+<% bodyClass = "channel" %>
 
+<%- include("../shared/_header.ejs") %>
+
+<link href="/css/font-circle-video.css" rel="stylesheet">
 
 <!-- channel -->
 <div class="container-fluid">
@@ -10,12 +12,13 @@
                 <img src="/images/channel-banner.png" alt="" class="c-banner">
             </div>
             <div class="c-avatar">
-                <a href="#"><img src="/images/channel-user.png" alt=""></a>
+                <img src="/images/logo.svg" alt="">
             </div>
             <a href="#" class="add"><i class="cv cvicon-cv-plus"></i></a>
             <div class="c-social hidden-xs">
                 Social
-                <a href="#" class="fb"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="fb"><i class="fa fa-
+                    facebook"></i></a>
                 <a href="#" class="tw"><i class="fa fa-twitter"></i></a>
                 <a href="#" class="gp"><i class="fa fa-google-plus"></i></a>
             </div>
@@ -35,19 +38,14 @@
                         <div class="col-lg-10 col-lg-offset-2 col-xs-12">
                             <div class="c-details">
                                 <div class="c-name">
-                                    NaughtyDog
-                                    <div class="c-checkbox">
-                                        <img src="/images/verified-profile-icon.png" alt="">
-                                    </div>
+                                    <%= artist.name %>
                                 </div>
                                 <div class="c-nav">
                                     <ul class="list-inline">
-                                        <li><a href="#">Videos</a></li>
-                                        <li><a href="#">Playlist</a></li>
-                                        <li class="hidden-xs"><a href="#">Channels</a></li>
-                                        <li class="hidden-xs"><a href="#">Discussion</a></li>
-                                        <li class="hidden-xs"><a href="#">About</a></li>
-                                        <li class="hidden-xs"><a href="#">Donate</a></li>
+                                        <li class="color-active"><a href="#">Artworks</a></li>
+                                        <li><a href="#">Collection</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">About</a></li>
                                     </ul>
                                     <div class="btn-group dropup pull-right">
                                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -121,25 +119,30 @@
                     </div>
                     <div class="cb-content videolist">
                         <div class="row">
+
+                            <% if(isOwner) { %>
                             <div class=" col-lg-3 col-sm-6 videoitem">
                                 <div class="b-video">
                                     <div class="v-img">
                                         <a href="/artwork/create">
-                                            <img src="/images/video1-1.png" alt="">
+                                            <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
+                            <% } %>
 
                             <% for(const artwork of artworks) { %>
                             <div class=" col-lg-3 col-sm-6 videoitem">
                                 <div class="b-video">
                                     <div class="v-img">
-                                        <a href="/artwork/<%= artwork._id  %>"><img src="<%= artwork.path %>" alt=""></a>
+                                        <a href="/artwork/<%= artwork._id  %>/show">
+                                            <img src="<%= artwork.path %>" alt="">
+                                        </a>
                                         <div class="time">category</div>
                                     </div>
                                     <div class="v-desc">
-                                        <a href="/artwork/<%= artwork._id  %>"><%= artwork.title %></a>
+                                        <a href="/artwork/<%= artwork._id  %>/show"><%= artwork.title %></a>
                                     </div>
                                     <div class="v-views">
                                         <span class="fa fa-eye"></span> <% artwork.noViews %> views. 

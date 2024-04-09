@@ -31,9 +31,17 @@ router.get('/auth/logout', authController.logout);
 /* ------------ END auth routes */
 
 // artists
-router.get("/artists", (req, res) => {
-    res.render("artists/index");
-});
+const artistController = require("../controllers/artist.controller");
+router.get("/artist", artistController.index);
+router.get("/artist/:email/show", artistController.show);
+
+// artworks
+const artworkController = require("../controllers/artwork.controller");
+router.get('/artwork/:id/show', 
+    artworkController.findOrFail,
+    artworkController.show
+);
+
 
 router.get("/categories", (req, res) => {
     res.render("categories/index");
@@ -42,8 +50,5 @@ router.get("/categories", (req, res) => {
 router.get("/search", (req, res) => {
     res.render("search");
 });
-
-const artworkController = require("../controllers/artwork.controller")
-router.get('/artwork/:id', artworkController.show)
 
 module.exports = router;
