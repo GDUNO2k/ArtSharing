@@ -50,6 +50,8 @@ async function store(req,res) {
     category.thumbnail = "/uploads/"+ req.file.filename;
     await category.save()
     
+    req.flash.success("Created successfully!");
+
     // redirect
     res.redirect(`/admin/category`);
 }
@@ -86,7 +88,7 @@ async function update(req,res) {
 
     // get user data
     const { name,description } = req.body;
-    Objact.asign(category, {
+    Object.assign(category, {
         name,description
     });
 
@@ -94,6 +96,8 @@ async function update(req,res) {
         category.thumbnail = "/uploads/"+ req.file.filename;
     }
     await category.save()
+
+    req.flash.success("Updated successfully!");
     
     // redirect
     res.redirect(`/admin/category`);

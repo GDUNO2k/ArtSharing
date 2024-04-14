@@ -1,5 +1,11 @@
  <form method="post" class="form" enctype="multipart/form-data">
 
+     <% if (category.thumbnail) { %>
+        <div class="form-group">
+            <img src="<%= category.thumbnail %>" alt="" width="100">
+        </div>
+    <% } %>
+
     <div class="form-group">
     <label for="thumbnail">Thumbnail</label>
     <input type="file" name="thumbnail" id="thumbnail" class="form-control">

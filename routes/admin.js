@@ -35,6 +35,7 @@ router.get("/admin/category/:id/edit",
     categoryController.edit
 );
 router.post("/admin/category/:id/edit", 
+    categoryController.findOrFail,
     upload.single("thumbnail"),
     categoryController.validateCategory,
     categoryController.update

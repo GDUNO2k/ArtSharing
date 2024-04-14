@@ -44,6 +44,8 @@ async function store(req,res) {
     // owner
     artwork.createdBy = req.user._id;
     await artwork.save()
+
+    req.flash.success("Created successfully!");
     
     // redirect
     res.redirect(`/artwork/${artwork._id}/show`);
@@ -116,6 +118,8 @@ async function update(req,res) {
     }
 
     await artwork.save()
+
+    req.flash.success("Updated successfully!");
     
     // redirect
     res.redirect(`/artwork/${artwork._id}/show`);
