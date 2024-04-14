@@ -42,10 +42,10 @@ router.get('/artwork/:id/show',
     artworkController.show
 );
 
-
-router.get("/categories", (req, res) => {
-    res.render("categories/index");
-});
+// categories
+const categoryController = require("../controllers/category.controller")
+router.get("/category", categoryController.index);
+router.get("/category/:id/show", categoryController.show);
 
 router.get("/search", (req, res) => {
     res.render("search");

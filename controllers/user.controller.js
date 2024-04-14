@@ -93,11 +93,6 @@ async function updatePassword(req, res) {
 }
 
 //
-const Artwork = require("../models/artwork.model");
-async function index(req, res) {
-  const artworks = await Artwork.find({ createdBy: req.user._id});
-  return res.render("user/index", {artworks});
-}
 
 
 module.exports = {
@@ -109,7 +104,7 @@ module.exports = {
   validatePassword,
   updatePassword,
 
-  index, 
+
 
   // upload,
   // validateUpload,

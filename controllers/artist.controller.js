@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 const Artwork = require("../models/artwork.model");
 
 async function index (req, res) {
-    const artists = await User.find();
+    const artists = await User.find({ role: {$ne : "admin"} });
     res.render("artist/index", {artists}); 
 }
 
@@ -18,7 +18,7 @@ async function show(req, res) {
 
     // invalid email -> artist not exist
     if(!artist) {
-        return res.abort(404);
+        return res.redirect("/not-found");
     }
     res.render("artist/show", {artist, artworks, isOwner});
 }

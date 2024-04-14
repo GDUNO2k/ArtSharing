@@ -1,0 +1,42 @@
+<div class="content-block">
+          
+          <div class="cb-content">
+            <h1> All Categories</h1>
+            
+            <a href="/admin/category/create" class="btn btn-default"><i class="fa fa-plus"></i>Add new</a>
+            
+            <table class="table table-bordered table-striped table-hover">
+              <tr>
+                <th width="100">Name</th>
+                <th>Thumbnail</th>
+                <th>Actions</th>
+              </tr>
+              
+              <% for(const category of categories) { %>
+                <tr>
+                  <td>
+                    <img src="<%= category.thumbnail %>" class="img-responsive">
+                  </td>
+                  <td><%= category.name %></td>
+                  <td>
+                    <a href="/admin/artwork?category=<%= category._id %>" class="btn btn-success btn-xs"><i class="fa fa-image"></i> Artworks</a>
+                    <a href="/admin/category/<%= category._id %>/edit" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                    <form class="d-inline" method="post" action="/admin/category/<%= category._id %>/destroy">
+                      <button 
+                      class="btn btn-danger btn-xs"
+                      onclick="return confirm('Are you sure want to delete??')"
+                      ><i class="fa fa-trash"></i> Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% } %>
+
+            </table>
+
+            <% if (categories.length == 0) { %>
+            <p class="text-center">
+                <em class="text-danger">No data.</em>
+            </p>
+            <% } %>
+          </div>
+        </div>

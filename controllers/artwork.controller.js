@@ -29,15 +29,15 @@ async function store(req,res) {
     // validate user data
     const errors = validationResult(req)
 
-    if (!errors.isEmpty()) {
-        return res.render("artwork/create", {errors: errors.mapped()})
-    }
-
     // get user data
     const { title,description,category,tags } = req.body;
     const artwork = new Artwork({
         title, description, category, tags, 
     });
+
+    if (!errors.isEmpty()) {
+        return res.render("artwork/create", {artwork, errors: errors.mapped()})
+    }
 
     artwork.path = "/uploads/"+ req.file.filename;
 
@@ -54,7 +54,7 @@ async function findOrFail(req,res,next){
     const artwork = await Artwork.findById(req.params.id).populate("createdBy").exec();
 
     if (!artwork) {
-        return res.abort(404);
+        return res.redirect('/not-found')
     } 
 
     req.artwork = artwork;
@@ -63,7 +63,7 @@ async function findOrFail(req,res,next){
 
 async function requireOwner (req,res,next) {
     if(req.artwork.createdBy.email !== req.user.email) {
-        return res.abort(404);
+        return res.redirect('/not-found')
     }
 
     next()

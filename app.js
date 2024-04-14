@@ -43,11 +43,22 @@ const flash = require('./middlewares/flash.js');
 app.use(flash);
 
 // routes
+app.get("/not-found", (req,res) => {
+  res.render("not-found")
+})
+
+app.get("/unauthorized", (req,res)=> {
+  res.render("unauthorized");
+})
+
 const visitorRoutes = require('./routes/visitor.js');
 app.use(visitorRoutes);
 
 const memberRoutes = require('./routes/member.js');
 app.use(memberRoutes);
+
+const adminRoutes = require('./routes/admin.js');
+app.use(adminRoutes);
 
 // route not found
 app.get("*", (req, res) => {

@@ -2,8 +2,8 @@ const express = require("express");
 const router = new express.Router();
 
 // require login
-const authMiddleware = require('../middlewares/auth.middleware');
-router.use(authMiddleware.requireLogin);
+// const authMiddleware = require('../middlewares/auth.middleware');
+// router.use(authMiddleware.requireLogin);
 
 // 
 const multer = require('multer');
@@ -35,9 +35,6 @@ router.post('/user/change-password',
     userController.validatePassword,
     userController.updatePassword
 );
-
-// user - home
-router.get('/user/index', userController.index);
 
 // create artwork
 const artworkController = require("../controllers/artwork.controller")

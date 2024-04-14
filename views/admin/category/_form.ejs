@@ -1,0 +1,29 @@
+ <form method="post" class="form" enctype="multipart/form-data">
+
+    <div class="form-group">
+    <label for="thumbnail">Thumbnail</label>
+    <input type="file" name="thumbnail" id="thumbnail" class="form-control">
+    <% if (errors.file) { %>
+    <p class="form-text text-danger"><%= errors.file.msg %></p>
+    <% } %>
+    </div>
+
+    <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="<%= category.name %>" >
+
+    <% if (errors.name) { %>
+    <p class="form-text text-danger"><%= errors.name.msg %></p>
+    <% } %>
+    </div>
+
+    <div class="form-group">
+    <label for="Description">Description</label>
+    <textarea name="description" id="description" class="form-control" placeholder="Description"><%= category.description%></textarea>
+    </div>
+
+    <div class="form-group">
+    <button class="btn btn-primary">Save</button>
+    </div>
+    
+</form>

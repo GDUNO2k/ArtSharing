@@ -23,7 +23,16 @@ function requireLogin(req, res, next) {
   next();
 }
 
+// redirect if logged in user is not admin
+function requireAdmin(req,res,next) {
+  if(req.user.role !== "admin") {
+    return res.redirect("/unauthorized")
+  }
+  next();
+}
+
 module.exports = {
   getUser,
-  requireLogin
+  requireLogin,
+  requireAdmin,
 }
