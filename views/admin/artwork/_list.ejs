@@ -1,0 +1,142 @@
+<div class="content-block">
+          
+          <div class="cb-content">
+            <h1> All Artworks</h1>
+
+            <form action="" method="get" class="py-3">
+              <div class="form-group row">
+                <div class="col-md-3">
+                  <input type="text" name="keyword" class="form-control" value="<%= req.query.keyword %>">
+                </div>
+                <div class="col-md-3">
+                  <select name="createdBy" class="form-control">
+                    <option value="">--All Artists--</option>
+                    <% for(const artist of artists) { %>
+                      <option value="<%= artist._id %>" <%= artist._id.toString() == req.query.createdBy ? "selected":"" %>><%= artist.name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select name="category" class="form-control">
+                    <option value="">--All Categories--</option>
+                    <% for(const category of categories) { %>
+                      <option value="<%= category._id %>" <%= category._id.toString() == req.query.category ? "selected":"" %>><%= category.name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+                <a href="/admin/artwork" class="btn btn-<%= Object.keys(req.query).length ? "danger" : "default" %>">Reset Filter</a>
+              </div>
+            </form>
+
+            <table class="table table-bordered table-striped table-hover">
+              <tr>
+                <th width="100">Thumbnail</th>
+                <th>Title</th>
+                <th>CreatedBy</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Updated At</th>
+                <th>Actions</th>
+              </tr>
+              
+              <% for(const artwork of artworks) { %>
+                <tr>
+                  <td>
+                    <img src="<%= artwork.path %>" class="img-responsive">
+                  </td>
+                  <td><%= artwork.title %></td>
+                  <td>
+                    <a href="?createdBy=<%= artwork.createdBy._id %>">
+
+                      <%= artwork.createdBy.name %>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="?category=<%= artwork.category._id %>">
+
+                      <%= artwork.category.name %>
+                    </a>
+                  </td>
+                  <td><%= artwork.tags %></td>
+                  <td><%= artwork.noViews %></td>
+                  <td><%= artwork.noLikes %></td>
+                  <td><%= artwork.updatedAt %></td>
+                  <td>
+                    <a href="/artwork/<%= artwork._id %>/show" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-arrow-right"></i>View</a>
+              
+                    <% if(artwork.hidden == false) { %>
+                    <form class="d-inline" method="post" action="/admin/artwork/<%= artwork._id %>/unhide">
+                      <button   class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Unhide</button>
+                    </form>
+                    <% } else { %>
+                    <form class="d-inline" method="post" action="/admin/artwork/<%= artwork._id %>/hide">
+                      <button   class="btn btn-secondary btn-xs"><i class="fa fa-eye-slash"></i> Hide</button>
+                    </form>
+                    <% } %>
+
+                  </td>
+                </tr>
+              <% } %>
+
+            </table>
+
+            
+            <% if (artworks.length == 0) { %>
+              <p class="text-center">
+                <em class="text-danger">No data.</em>
+              </p>
+              <% } else {
+                const maxPagesToShow = 3; 
+                const halfPagesToShow = Math.floor(maxPagesToShow / 2);
+                const startPage = Math.max(1, page - halfPagesToShow);
+                const endPage = Math.min(numPages, startPage + maxPagesToShow - 1); 
+              %>
+
+                <div class="v-pagination">
+                  <ul class="list-inline">
+                    <% if(page > 1) {  %>
+                    <li class="v-pagination-prev">
+                      <a href="?page=<%= page - 1  %>"><i class="cv cvicon-cv-previous"></i></a>
+                    </li>
+                    <% } %>
+
+                    <% if (startPage > 1) { %>
+                      <li>
+                        <a href="#">...</a>
+                      </li>
+                    <% } %>
+
+                    <% for (let i = startPage; i <= endPage; i++) { %>
+                      <% if (i === page) { %>
+                        <li class="active-color">
+                          <a href="#"><%= i %></a>
+                        </li>
+                      <% } else { %>
+                        <li>
+                          <a href="/?page=<%= i %>"><%= i %></a>
+                        </li>
+                      <% } %>
+                    <% } %>
+
+                    <% if (endPage < numPages) { %>
+                      <li>
+                        <a href="#">...</a>
+                      </li>
+                    <% } %>
+
+
+                    <% if (page < numPages) { %>
+                    <li class="v-pagination-next">
+                      <a href="?page=<%= (page + 1)  %>"><i class="cv cvicon-cv-next"></i></a>
+                    </li>
+                    <% } %>
+                  </ul>
+                </div>
+                
+                <% } %>
+          </div>
+        </div>

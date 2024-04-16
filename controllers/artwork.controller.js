@@ -1,10 +1,13 @@
 const { check, validationResult } = require("express-validator");
 const Artwork = require("../models/artwork.model");
+const Category = require("../models/category.model");
 
-function create(req,res) {
+
+async function create(req,res) {
     const artwork = new Artwork();
+    const categories = await Category.find();
 
-    return res.render("artwork/create", {artwork})
+    return res.render("artwork/create", {artwork, categories })
 }
 
 // validate artwork
@@ -26,17 +29,24 @@ const validateArtwork = [
 ];
 
 async function store(req,res) {
+    const categories = await Category.find();
+
     // validate user data
     const errors = validationResult(req)
 
-    // get user data
+    // get user data 
     const { title,description,category,tags } = req.body;
     const artwork = new Artwork({
-        title, description, category, tags, 
+        title, description, 
+        category, 
+        tags, 
     });
 
+    console.log(artwork.category._id) 
+
     if (!errors.isEmpty()) {
-        return res.render("artwork/create", {artwork, errors: errors.mapped()})
+        console.log(errors)
+        return res.render("artwork/create", {artwork, categories,errors: errors.mapped()})
     }
 
     artwork.path = "/uploads/"+ req.file.filename;
@@ -68,7 +78,7 @@ async function requireOwner (req,res,next) {
         return res.redirect('/not-found')
     }
 
-    next()
+    next();
 }
 
 async function show(req,res) { 
@@ -90,12 +100,14 @@ async function show(req,res) {
 
 
 async function edit(req,res) {
+    const categories = await Category.find();
     const artwork = req.artwork;
 
-    return res.render("artwork/edit", {artwork});
+    return res.render("artwork/edit", {artwork, categories});
 }
 
 async function update(req,res) {
+    const categories = await Category.find();
     const artwork = req.artwork;
 
     // get user data
@@ -109,7 +121,7 @@ async function update(req,res) {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.render("artwork/edit", {artwork, errors: errors.mapped()})
+        return res.render("artwork/edit", {artwork, categories, errors: errors.mapped()})
     }
 
     // update file path if new

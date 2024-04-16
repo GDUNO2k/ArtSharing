@@ -24,3 +24,8 @@
 .d-inline {
     display: inline;
 }
+
+.form-control select,
+.form-control input {
+    padding: 0 10px;
+}

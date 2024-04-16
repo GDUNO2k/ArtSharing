@@ -14,8 +14,9 @@ const artworkSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
+    ref: 'Category'
   },
   tags: {
     type: String,
@@ -31,6 +32,10 @@ const artworkSchema = new mongoose.Schema({
   noLikes:  {
     type: Number,
     default: 0,
+  },
+  hidden: {
+    type: Boolean,
+    default: true,
   }
 }, {timestamps: true});
 

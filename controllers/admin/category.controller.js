@@ -42,7 +42,7 @@ async function store(req,res) {
     // validate user data
     const errors = validationResult(req)
 
-    if (!errors.isEmpty()) {
+    if (!errors.isEmpty()) { 
         console.log(errors.mapped())
         return res.render("admin/category/create", {categories, category, errors: errors.mapped()})
     }

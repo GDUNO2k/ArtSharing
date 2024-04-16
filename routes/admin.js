@@ -43,6 +43,17 @@ router.post("/admin/category/:id/edit",
 
 router.post("/admin/category/:id/destroy", categoryController.destroy)
 
+//Manage artwork
+const artworkController = require('../controllers/admin/artwork.controller');
+router.get("/admin/artwork", artworkController.index)
+router.post("/admin/artwork/:id/hide", 
+    artworkController.findOrFail,
+    artworkController.hide)
+router.post("/admin/artwork/:id/unhide", 
+    artworkController.findOrFail,
+    artworkController.unhide)
+
+
 
 // GET index
 // GET create
