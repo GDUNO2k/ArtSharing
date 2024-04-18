@@ -68,7 +68,7 @@
                   <td>
                     <a href="/artwork/<%= artwork._id %>/show" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-arrow-right"></i>View</a>
               
-                    <% if(artwork.hidden == false) { %>
+                    <% if(artwork.hidden == true) { %>
                     <form class="d-inline" method="post" action="/admin/artwork/<%= artwork._id %>/unhide">
                       <button   class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Unhide</button>
                     </form>
@@ -89,54 +89,10 @@
               <p class="text-center">
                 <em class="text-danger">No data.</em>
               </p>
-              <% } else {
-                const maxPagesToShow = 3; 
-                const halfPagesToShow = Math.floor(maxPagesToShow / 2);
-                const startPage = Math.max(1, page - halfPagesToShow);
-                const endPage = Math.min(numPages, startPage + maxPagesToShow - 1); 
-              %>
-
-                <div class="v-pagination">
-                  <ul class="list-inline">
-                    <% if(page > 1) {  %>
-                    <li class="v-pagination-prev">
-                      <a href="?page=<%= page - 1  %>"><i class="cv cvicon-cv-previous"></i></a>
-                    </li>
-                    <% } %>
-
-                    <% if (startPage > 1) { %>
-                      <li>
-                        <a href="#">...</a>
-                      </li>
-                    <% } %>
-
-                    <% for (let i = startPage; i <= endPage; i++) { %>
-                      <% if (i === page) { %>
-                        <li class="active-color">
-                          <a href="#"><%= i %></a>
-                        </li>
-                      <% } else { %>
-                        <li>
-                          <a href="/?page=<%= i %>"><%= i %></a>
-                        </li>
-                      <% } %>
-                    <% } %>
-
-                    <% if (endPage < numPages) { %>
-                      <li>
-                        <a href="#">...</a>
-                      </li>
-                    <% } %>
-
-
-                    <% if (page < numPages) { %>
-                    <li class="v-pagination-next">
-                      <a href="?page=<%= (page + 1)  %>"><i class="cv cvicon-cv-next"></i></a>
-                    </li>
-                    <% } %>
-                  </ul>
-                </div>
+              <% } else { %>
                 
-                <% } %>
-          </div>
+                <%- include("../../shared/_pagination.ejs")  %>
+              
+              <% } %>
         </div>
+      </div>

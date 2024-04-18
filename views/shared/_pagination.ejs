@@ -1,0 +1,74 @@
+<div class="text-center">
+        <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <!-- previous -->
+            <% if(req.pagination.page > 1) { %>
+            <li>
+            <a href="?page=<%= req.pagination.page - 1 %>&<%= req.pagination.paramstring %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            <% } %>
+
+            <!-- page 1 -->
+            <li class="<%= req.pagination.page == 1 ? "active":"" %>">
+            <a href="?page=1&<%= req.pagination.paramstring %>">1</a>
+            </li>
+            
+
+            <!--  -->
+            <% 
+            let start= Math.max(2, req.pagination.page -2);
+            let end = Math.min(req.pagination.numPages-1, req.pagination.page+2);
+            %>
+
+            <% if(start == 3) { %>
+            <li class="<%= req.pagination.page == 2 ? "active":"" %>">
+            <a href="?page=2&<%= req.pagination.paramstring %>">2</a>
+            </li>
+            <% } %>
+
+            <!-- ... -->
+            <% if(start > 3) { %>
+            <li class="disabled">
+            <a>...</a>
+            </li>
+            <% } %>
+
+            <% for(let i = start; i<= end; i++) { %>
+            <li class="<%= req.pagination.page == i ? "active":"" %>">
+            <a href="?page=<%= i %>"><%= i %></a>
+            </li>
+            <% } %>
+
+            <!-- ... -->
+            <% if(end < req.pagination.numPages-2) { %>
+            <li class="disabled">
+            <a>...</a>
+            </li>
+            <% } %>
+
+            <% if(end == req.pagination.numPages-2) { %>
+            <li class="<%= req.pagination.page == (end +1) ? "active":"" %>">
+            <a href="?page=<%= end + 1  %>&<%= req.pagination.paramstring %>"><%= end +1 %></a>
+            </li>
+            <% } %>
+
+            <!-- last page -->
+            <% if(req.pagination.numPages > 1) { %>
+            <li class="<%= req.pagination.page == req.pagination.numPages ? "active":"" %>">
+            <a href="?page=<%= req.pagination.numPages %>&<%= req.pagination.paramstring %>"><%= req.pagination.numPages %></a>
+            </li>
+            <% } %>
+
+            <!-- next --> 
+            <% if(req.pagination.page < req.pagination.numPages) { %>
+            <li>
+            <a href="?page=<%= req.pagination.page + 1 %>&<%= req.pagination.paramstring %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            <% } %>
+        </ul>
+        </nav>
+    </div>

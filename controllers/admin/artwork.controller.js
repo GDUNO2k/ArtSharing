@@ -3,9 +3,11 @@ const Artwork = require("../../models/artwork.model");
 const Category = require("../../models/category.model");
 const Artist = require("../../models/user.model");
 const mongoose = require("mongoose");
+const querystring = require('querystring');
 
 // index
 async function index (req,res){
+
     const artists = await Artist.find();
     const categories = await Category.find();
 
@@ -21,22 +23,20 @@ async function index (req,res){
     }
 
     // filter by category
-    if (req.query.category) {
+    if (req.query.category) { 
         query.where({category: req.query.category })
     }
 
     // pagination
-    const page = parseInt(req.query.page) || 1;
-    const perPage = 1;
-
+    req.pagination.perPage = 6;
     const totalResults = await query.clone().countDocuments();
-    const numPages = Math.ceil(totalResults/perPage);
+    req.pagination.numPages = Math.ceil(totalResults/req.pagination.perPage);
 
-    query.skip((page-1) * perPage).limit(perPage);
+    query.skip((req.pagination.page-1) * req.pagination.perPage).limit(req.pagination.perPage);
 
     const artworks = await query.populate('createdBy').populate('category').sort({ createdAt: -1 }).exec();
 
-    res.render('admin/artwork/index', {artworks, artists, categories, page, numPages})
+    res.render('admin/artwork/index', {artworks, artists, categories})
 }
 
 // req.artwork
@@ -52,25 +52,25 @@ async function findOrFail(req,res,next){
 }
 
 async function hide(req,res) {
-    req.artwork.hidden = false;
+    req.artwork.hidden = true;
 
     await req.artwork.save();
 
     req.flash.success("Artwork has been hidden!");
     
     // redirect
-    res.redirect(`/admin/artwork`);
+    res.redirect(`back`);
 }
 
 async function unhide(req,res) {
-    req.artwork.hidden = true;
+    req.artwork.hidden = false; 
 
     await req.artwork.save();
 
     req.flash.success("Artwork has been unbaned!");
     
     // redirect
-    res.redirect(`/admin/artwork`);
+    res.redirect(`back`);
 }
 
 module.exports = {

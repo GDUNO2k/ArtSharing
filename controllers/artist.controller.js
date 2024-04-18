@@ -14,7 +14,7 @@ async function show(req, res) {
     }
 
     const artist = await User.findOne({email: req.params.email});
-    const artworks = await Artwork.find({ createdBy: artist._id});
+    const artworks = await Artwork.find({ createdBy: artist._id, hidden: false});
 
     // invalid email -> artist not exist
     if(!artist) {

@@ -35,7 +35,7 @@ const artworkSchema = new mongoose.Schema({
   },
   hidden: {
     type: Boolean,
-    default: true,
+    default: false,
   }
 }, {timestamps: true});
 

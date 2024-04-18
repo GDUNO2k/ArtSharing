@@ -109,6 +109,13 @@ async function handleLogin(req, res) {
   });
   if (!user) {
     req.flash.error('Invalid email or password!');
+ 
+    return res.render("auth/login", { errors });
+  }
+
+  // check if banned user
+  if(user.active == false) {
+    req.flash.error('Account banned, please contact admin (0902590396)!');
 
     return res.render("auth/login", { errors });
   }
