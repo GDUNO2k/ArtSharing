@@ -1,10 +1,10 @@
 const express = require('express');
 const router = new express.Router();
-const pagination = require('../middlewares/pagination')
 
-// // check if admin
-// const auth = require("../middlewares/auth.middleware");
-// router.use(auth.requireAdmin);
+
+// check if admin
+const auth = require("../middlewares/auth.middleware");
+router.use(auth.requireAdmin);
 
 // 
 const multer = require('multer');
@@ -46,7 +46,6 @@ router.post("/admin/category/:id/destroy", categoryController.destroy)
 //Manage artwork
 const artworkController = require('../controllers/admin/artwork.controller');
 router.get("/admin/artwork", 
-    pagination,
     artworkController.index
 )
 router.post("/admin/artwork/:id/hide", 
@@ -59,7 +58,6 @@ router.post("/admin/artwork/:id/unhide",
 //Manage user
 const userController = require('../controllers/admin/user.controller');
 router.get("/admin/user", 
-    pagination,
     userController.index
 )
 router.post("/admin/user/:id/ban", 
@@ -68,20 +66,5 @@ router.post("/admin/user/:id/ban",
 router.post("/admin/user/:id/unban", 
     userController.findOrFail,
     userController.unban)
-
-// GET index
-// GET create
-// POST create
-// GET edit
-// POST edit
-// POST destroy
-
-
-// manage users
-
-
-
-
-// manage artworks
 
 module.exports = router;

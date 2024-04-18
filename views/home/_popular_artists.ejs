@@ -1,0 +1,48 @@
+<div class="content-block head-div head-arrow">
+    <div class="head-arrow-icon">
+    <i class="cv cvicon-cv-next"></i>
+    </div>
+    <div class="cb-header">
+    <div class="row">
+        <div class="col-lg-10 col-sm-10 col-xs-8">
+        <ul class="list-inline">
+            <li>
+            <a href="#" class="color-active">Popular Artists</a>
+            </li>
+        </ul>
+        </div>
+        <div class="col-lg-2 col-sm-2 col-xs-4">
+        <div class="btn-group pull-right bg-clean">
+            <a href="/artist" type="button" class="btn btn-default">
+            More <span class="fa fa-caret-right"></span>
+        </a>
+        </div>
+        <div class="clearfix"></div>
+        </div>
+    </div>
+    </div>
+    <div class="cb-content chanels-row">
+    <div class="row">
+        <% for(const artist of artists) { %>
+        <div class="col-lg-2 col-sm-4 col-xs-4">
+        <div class="b-chanel">
+            <a href="/artist/<%= artist._id %>">
+            <!-- if avatar -->
+            <% if(artist.avatar) { %>
+            <img src="<%= artist.avatar %>" alt="" />
+            <!-- else  -->
+            <% } else { %>
+            <img src="images/chanel-1.png" alt="" />
+            <% } %>
+
+            <div class="hover">
+                <span><%= artist.name %></span>
+                <span><i class="cv cvicon-cv-liked"></i> 5K</span>
+            </div>
+            </a>
+        </div>
+        </div>
+        <% } %>
+    </div>
+    </div>
+</div>

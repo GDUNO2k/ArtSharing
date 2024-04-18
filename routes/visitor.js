@@ -4,11 +4,8 @@ const router = new express.Router();
 const User = require('../models/user.model');
 
 // home
-router.get("/", async (req, res) => {
-    const artists = await User.find().limit(6).exec();
-
-    res.render("home/index", { artists, req });
-});
+const homeController = require('../controllers/home.controller');
+router.get("/", homeController.index);
 
 /* ------------ auth routes */
 const authController = require('../controllers/auth.controller');
@@ -37,6 +34,7 @@ router.get("/artist/:email/show", artistController.show);
 
 // artworks
 const artworkController = require("../controllers/artwork.controller");
+router.get("/artwork",artworkController.index)
 router.get('/artwork/:id/show', 
     artworkController.findOrFail,
     artworkController.show

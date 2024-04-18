@@ -48,7 +48,7 @@
                         </div>
                         <div class="sv-views-stats">
                             <span class="percent">95%</span>
-                            <span class="green"><span class="circle"></span> 39,852</span>
+                            <span class="green"><span class="circle"></span> <%= artwork.likes.length %></span>
                             <span class="grey"><span class="circle"></span> 852</span>
                         </div>
                     </div>
@@ -71,7 +71,11 @@
                             </a>
                             <div class="acide-panel hidden-xs">
                                  <a href="#"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
-                                 <a href="#"><i class="cv cvicon-cv-liked" data-toggle="tooltip" data-placement="top" title="Liked"></i></a>
+                                 <form class="d-inline" action="/artwork/<%= artwork._id %>/like" method="post">
+                                    <button class="btn">
+                                        <i class="cv cvicon-cv-liked" data-toggle="tooltip" data-placement="top" title="Liked"></i>
+                                    </button>
+                                 </form>
                             </div>
                         </div>
                         <div class="clearfix"></div>

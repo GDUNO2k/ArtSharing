@@ -2,8 +2,8 @@ const express = require("express");
 const router = new express.Router();
 
 // require login
-// const authMiddleware = require('../middlewares/auth.middleware');
-// router.use(authMiddleware.requireLogin);
+const authMiddleware = require('../middlewares/auth.middleware');
+router.use(authMiddleware.requireLogin);
 
 // 
 const multer = require('multer');
@@ -61,20 +61,10 @@ router.post('/artwork/:id/destroy',
     artworkController.requireOwner,
     artworkController.destroy
 );
-
-// artworks
-// // const artworkController = require("../controllers/artwork.controller")
-// router.get('/artwork/:id', artworkController.show)
-
-// view all artworks - with pagination
-
-// update artwork
-// delete artwork
-
-
-/* ----------- END my space */
-
-// manage artworks
+router.post('/artwork/:id/like', 
+    artworkController.findOrFail,
+    artworkController.like,
+);
 
 // interact with artwork
 

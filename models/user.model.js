@@ -26,7 +26,13 @@ const userSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true,
-  }
+  },
+  artworks: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Artwork'
+    }
+  ]
 
 }, {timestamps: true});
 

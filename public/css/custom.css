@@ -29,3 +29,16 @@
 .form-control input {
     padding: 0 10px;
 }
+
+/* category index */
+.b-category img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.b-video img {
+    width: 100%;
+    height: 168px;
+    object-fit: cover;
+}

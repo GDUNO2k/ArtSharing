@@ -36,7 +36,13 @@ const artworkSchema = new mongoose.Schema({
   hidden: {
     type: Boolean,
     default: false,
-  }
+  },
+  likes: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'User'
+    }
+  ]
 }, {timestamps: true});
 
 module.exports = mongoose.model("Artwork", artworkSchema);

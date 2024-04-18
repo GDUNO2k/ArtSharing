@@ -1,7 +1,29 @@
 const { check, validationResult } = require("express-validator");
 const Artwork = require("../models/artwork.model");
 const Category = require("../models/category.model");
+const User = require("../models/user.model");
 
+
+async function index(req,res) {
+    const query = Artwork.find();
+
+    // TODO: popular
+
+    // filter by title
+    if (req.query.keyword) { 
+        query.where({ title: { $regex: req.query.keyword, $options: 'i' } })
+    }
+
+    // pagination
+    req.pagination.perPage = 8;
+    const totalResults = await query.clone().countDocuments();
+    req.pagination.numPages = Math.ceil(totalResults/req.pagination.perPage);
+    query.skip((req.pagination.page-1) * req.pagination.perPage).limit(req.pagination.perPage);
+
+    const artworks = await query.populate('createdBy').populate('category').sort({ createdAt: -1 }).exec();
+
+    return res.render("artwork/index", {artworks})
+}
 
 async function create(req,res) {
     const artwork = new Artwork();
@@ -25,7 +47,15 @@ const validateArtwork = [
     }),
     check("title").trim().notEmpty().withMessage("Title is required"),
     check("description").trim().notEmpty().withMessage("Description is required"),
-    check("category").notEmpty().withMessage("Category is required"),
+    check("category").notEmpty().withMessage("Category is required").custom(async (value, { req }) => {
+        const category = await Category.findById(value);
+
+        if (!category) {
+            throw new Error("Category not exist!")
+        }
+        
+        return true;
+    }),
 ];
 
 async function store(req,res) {
@@ -42,8 +72,6 @@ async function store(req,res) {
         tags, 
     });
 
-    console.log(artwork.category._id) 
-
     if (!errors.isEmpty()) {
         console.log(errors)
         return res.render("artwork/create", {artwork, categories,errors: errors.mapped()})
@@ -54,6 +82,16 @@ async function store(req,res) {
     // owner
     artwork.createdBy = req.user._id;
     await artwork.save()
+
+    //add to owner.artworks
+    await User.findByIdAndUpdate(req.user._id, {
+        $push: {artworks: artwork._id}
+    });
+
+    // add to category
+    await Category.findByIdAndUpdate(category, {
+        $push: {artworks: artwork._id}
+    });
 
     req.flash.success("Created successfully!");
     
@@ -93,11 +131,8 @@ async function show(req,res) {
         isOwner = true; 
     }
 
-
     return res.render("artwork/show", {artwork, isOwner});
 }
-
-
 
 async function edit(req,res) {
     const categories = await Category.find();
@@ -109,10 +144,11 @@ async function edit(req,res) {
 async function update(req,res) {
     const categories = await Category.find();
     const artwork = req.artwork;
+    const oldCategory = req.artwork.category;
 
     // get user data
     const { title,description,category,tags } = req.body;
-    
+
     Object.assign(artwork, {
         title, description, category, tags, 
     });
@@ -131,6 +167,19 @@ async function update(req,res) {
 
     await artwork.save()
 
+    // update category
+    if (!oldCategory.equals(artwork.category)) {
+        // remove from old category
+        await Category.findByIdAndUpdate(oldCategory, {
+            $pull: {artworks: artwork._id}
+        });
+
+        // add to new category
+        await Category.findByIdAndUpdate(category, {
+            $push: {artworks: artwork._id}
+        });
+    }
+    
     req.flash.success("Updated successfully!");
     
     // redirect
@@ -138,7 +187,15 @@ async function update(req,res) {
 }
 
 async function like(req,res) {
+    // add logged in user to likes
+    await Category.findByIdAndUpdate(req.params.id, {
+        $push: {likes: req.user._id},
+    });
+
+    req.flash.success("Liked artwork!");
     
+    // redirect
+    res.redirect(`back`);
 }
 
 async function watchLater(req,res) {
@@ -146,7 +203,14 @@ async function watchLater(req,res) {
 }
 
 async function destroy(req,res) {
+    const category = req.artwork.category;
+
     await Artwork.findByIdAndDelete(req.params.id);
+
+    // remove from category
+    await Category.findByIdAndUpdate(category, {
+        $pull: {artworks: req.artwork._id}
+    });
 
     req.flash.success("Deleted successfully!");
 
@@ -154,6 +218,8 @@ async function destroy(req,res) {
 }
 
 module.exports = {
+    index,
+
     create,
     validateArtwork,
     store,

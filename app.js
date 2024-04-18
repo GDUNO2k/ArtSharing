@@ -42,6 +42,9 @@ app.use(authMiddleware.getUser);
 const flash = require('./middlewares/flash.js');
 app.use(flash);
 
+const pagination = require('./middlewares/pagination')
+app.use(pagination);
+
 // routes
 app.get("/not-found", (req,res) => {
   res.render("not-found")
