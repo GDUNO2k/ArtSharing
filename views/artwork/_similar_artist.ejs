@@ -1,0 +1,28 @@
+<div class="caption">
+    <div class="left">
+        <a href="/artist/<%= artwork.createdBy.email %>/show">Other from <%= artwork.createdBy.name %></a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="list">
+    <% for(const artwork of similarArtistArtworks) { %>
+    <div class="h-video row">
+        <div class="col-lg-6 col-sm-6">
+            <div class="v-img">
+                <a href="/artwork/<%= artwork._id %>/show"><img src="<%= artwork.path %>" alt=""></a>
+                <div class="time"><%= artwork.category.name %></div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <div class="v-desc">
+                <a href="/artwork/<%= artwork._id %>/show"><%= artwork.title %></a>
+            </div>
+            <div class="v-views">
+                <%= artwork.noViews %> Views
+            </div>
+            <div class="v-percent" style="padding-left: 0"><span class="fa fa-heart"></span> <%= artwork.likes.length %> Likes</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <% } %>
+</div>

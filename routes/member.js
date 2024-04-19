@@ -61,12 +61,24 @@ router.post('/artwork/:id/destroy',
     artworkController.requireOwner,
     artworkController.destroy
 );
-router.post('/artwork/:id/like', 
+
+// interact with artwork
+router.get('/artwork/:id/like', 
     artworkController.findOrFail,
     artworkController.like,
 );
+router.get('/artwork/:id/unlike', 
+    artworkController.findOrFail,
+    artworkController.unlike,
+);
 
-// interact with artwork
+// interact with artist
+const artistController = require("../controllers/artist.controller")
+router.get('/artist/:email/follow', 
+    artistController.findOrFail,
+    artistController.follow,
+);
+
 
 // follow
 

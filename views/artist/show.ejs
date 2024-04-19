@@ -20,7 +20,6 @@
                 <a href="#" class="fb"><i class="fa fa-
                     facebook"></i></a>
                 <a href="#" class="tw"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="gp"><i class="fa fa-google-plus"></i></a>
             </div>
         </div>
     </div>
@@ -63,10 +62,12 @@
                                 <div class="c-sub pull-right hidden-xs">
                                     <div class="c-sub-wrap">
                                         <div class="c-f">
-                                            Subscribe
+                                            <a href="/artist/<%= artist.email %>/follow">
+                                            Follow
+                                            </a>
                                         </div>
                                         <div class="c-s">
-                                            22,548,145
+                                            <%= artist.followers.length%>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -81,35 +82,17 @@
                     <div class="cb-header">
                         <div class="row">
                             <div class="col-lg-8 col-xs-6">
-                                <div class="btn-group bg-clean">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Uploads <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="cv cvicon-cv-relevant"></i> Relevant</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-calender"></i> Recent</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-view-stats"></i> Viewed</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-star"></i> Top Rated</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-watch-later"></i> Longest</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"></div>
+                                
                             </div>
                             <div class="col-lg-4 col-xs-6">
-                                <div class="h-grid pull-right hidden-xs">
-                                    <a href="#"><i class="cv cvicon-cv-grid-view"></i></a>
-                                    <a href="#"><i class="cv cvicon-cv-list-view"></i></a>
-                                </div>
                                 <div class="btn-group pull-right bg-clean">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Date Added ( Newest ) <span class="caret"></span>
+                                        Sort (<%= req.query.sort %>) <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="cv cvicon-cv-relevant"></i> Relevant</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-calender"></i> Recent</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-view-stats"></i> Viewed</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-star"></i> Top Rated</a></li>
-                                        <li><a href="#"><i class="cv cvicon-cv-watch-later"></i> Longest</a></li>
+                                        <li><a href="?sort=recent"><i class="cv cvicon-cv-calender"></i> Recent</a></li>
+                                        <li><a href="?sort=most-viewed"><i class="cv cvicon-cv-view-stats"></i> Most Viewed</a></li>
+                                        <li><a href="?sort=most-liked"><i class="cv cvicon-cv-star"></i> Most Liked</a></li>
                                     </ul>
                                 </div>
 
@@ -133,48 +116,22 @@
                             <% } %>
 
                             <% for(const artwork of artworks) { %>
-                            <div class=" col-lg-3 col-sm-6 videoitem">
-                                <div class="b-video">
-                                    <div class="v-img">
-                                        <a href="/artwork/<%= artwork._id  %>/show">
-                                            <img src="<%= artwork.path %>" alt="">
-                                        </a>
-                                        <div class="time">category</div>
-                                    </div>
-                                    <div class="v-desc">
-                                        <a href="/artwork/<%= artwork._id  %>/show"><%= artwork.title %></a>
-                                    </div>
-                                    <div class="v-views">
-                                        <span class="fa fa-eye"></span> <% artwork.noViews %> views. 
-
-                                        <span class="v-percent">
-                                            <span class="v-circle"></span> 78%
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                                <%- include("../artwork/_artwork.ejs", {artwork}) %>
                             <% } %>
                         </div>
+
+                        <% if (artworks.length == 0) { %>
+                            <p class="text-center">
+                                <em class="text-danger">No data.</em>
+                            </p>
+                        <% } else { %>
+                        
+                            <%- include("../shared/_pagination.ejs")  %>
+                        
+                        <% } %>
                     </div>
                 </div>
                 <!-- /Featured Videos -->
-
-                <!-- pagination -->
-                <div class="v-pagination">
-                    <ul class="list-inline">
-                        <li class="v-pagination-prev"><a href="#"><i class="cv cvicon-cv-previous"></i></a></li>
-                        <li class="v-pagination-first"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="v-pagination-skin visible-xs"><a href="#">Skip 5 Pages</a></li>
-                        <li class="v-pagination-next"><a href="#"><i class="cv cvicon-cv-next"></i></a></li>
-                    </ul>
-                </div>
-                <!-- /pagination -->
 
             </div>
         </div>

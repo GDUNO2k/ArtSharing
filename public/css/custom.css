@@ -42,3 +42,10 @@
     height: 168px;
     object-fit: cover;
 }
+
+/* artwork show */
+.artwork-sm img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}

@@ -7,7 +7,7 @@
                 <div class="content-block head-div">
                     <div class="cb-header">
                         <div class="row">
-                            <div class="col-lg-8 col-sm-8 col-xs-10">
+                            <div class="col-lg-5 col-sm-8 col-xs-10">
                                 <ul class="list-inline">
                                 <li>
                                     <a href="#" class="color-active">Most Popular</a>
@@ -16,13 +16,26 @@
                                 <li class="hidden-xs"><a href="#">Most Recent</a></li>
                                 </ul>
                             </div>
-                            <div class="col-lg-4 col-sm-4 col-xs-2">
+                            <div class="col-lg-7 col-sm-4 col-xs-2">
                                 <div class="cb-search channels-search">
-                                <form action="">
-                                    <label>
-                                    <input type="search" name="keyword" placeholder="Search Artworks ...">
-                                    <i class="fa fa-search"></i>
-                                    </label>
+                                <form action="" class="row">
+                                    <div class="col-md-4">
+                                        <input type="search" name="keyword" placeholder="Search Artworks ..." value="<%= req.query.keyword %>">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="category" class="form-control" style="padding: 0 15px">
+                                            <option value="">--All Categories--</option>
+                                            <% for(const category of categories) { %>
+                                            <option value="<%= category._id %>" <%= category._id.toString() == req.query.category ? "selected":"" %>><%= category.name %></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+                                        <a href="/artwork" class="btn btn-<%= Object.keys(req.query).length ? "danger" : "default" %>">Reset Filter</a>
+                                    </div>
+
                                 </form>
                                 </div>
                             </div>
@@ -32,23 +45,7 @@
                 <div class="cb-content videolist">
                     <div class="row">
                         <% for(const artwork of artworks) { %>
-                        <div class="col-lg-3 col-sm-6 videoitem">
-                            <div class="b-video">
-                                <div class="v-img">
-                                    <a href="/artwork/<%= artwork._id %>/show">
-                                        <img src="<%= artwork.path %>" alt="" />
-                                    </a>
-                                    <div class="time"><%= artwork.category.name %></div>
-                                </div>
-                                <div class="v-desc">
-                                    <a href="single-video-tabs.html"><%= artwork.title %></a>
-                                </div>
-                                <div class="v-views">
-                                    <i class="fa fa-eye"></i> <%= artwork.noViews %> Views 
-                                    <span style="margin-left: 15px"><i class="fa fa-heart"></i> <%= artwork.likes.length %> Likes</span>
-                                </div>
-                            </div>
-                        </div>
+                            <%- include("./_artwork.ejs", {artwork})   %>
                         <% } %>
                     </div>
 

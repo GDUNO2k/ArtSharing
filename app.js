@@ -26,10 +26,12 @@ app.use(
 );
 
 // access req, errors in ejs
+const moment = require("moment")
 app.use((req, res, next) => {
   res.locals.req = req; 
   res.locals.errors = {}; 
   res.locals.bodyClass = "";
+  res.locals.moment = moment;
 
   next();
 });

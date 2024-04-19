@@ -32,6 +32,18 @@ const userSchema = new mongoose.Schema({
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Artwork'
     }
+  ],
+  followers: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'User'
+    }
+  ],
+    following: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'User'
+    }
   ]
 
 }, {timestamps: true});

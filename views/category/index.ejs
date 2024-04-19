@@ -9,15 +9,6 @@
               <div class="cb-header">
                 <div class="row">
                   <div class="col-lg-10">
-                    <ul class="list-inline">
-                      <li>
-                        <a href="#" class="color-active">All Categories</a>
-                      </li>
-                      <li><a href="#">Most Popular</a></li>
-                      <li><a href="#">Trending</a></li>
-                      <li class="hidden-xs"><a href="#">Most Recent</a></li>
-                      <li class="hidden-xs"><a href="#">A - Z</a></li>
-                    </ul>
                   </div>
                 </div>
               </div>
@@ -28,7 +19,7 @@
                   <!-- 1-6 -->
                   <div class="col-lg-3 col-xs-6 col-sm-3">
                     <div class="b-category">
-                      <a href="#"><img src="<%= category.thumbnail %>" alt=""/></a>
+                      <a href="/artwork/?category=<%= category._id %>"><img src="<%= category.thumbnail %>" alt=""/></a>
                       <a href="/category/<%= category._id %>/show" class="name"><%= category.name %></a>
                       <p class="desc"><%= category.artworks.length %> Artworks</p>
                     </div>

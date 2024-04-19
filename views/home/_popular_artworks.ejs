@@ -25,23 +25,7 @@
 <div class="cb-content videolist">
     <div class="row">
         <% for(const artwork of artworks) { %>
-        <div class="col-lg-3 col-sm-6 videoitem">
-            <div class="b-video">
-                <div class="v-img">
-                    <a href="/artwork/<%= artwork._id %>/show">
-                        <img src="<%= artwork.path %>" alt="" />
-                    </a>
-                    <div class="time"><%= artwork.category.name %></div>
-                </div>
-                <div class="v-desc">
-                    <a href="single-video-tabs.html"><%= artwork.title %></a>
-                </div>
-                <div class="v-views">
-                    <%= artwork.noViews %> Views
-                    <span class=""><i class="fa fa-heart"></i> <%= artwork.noLikes %></span>
-                </div>
-            </div>
-        </div>
+        <%- include("../artwork/_artwork.ejs", {artwork}) %>
         <% } %>
     </div>
 </div>

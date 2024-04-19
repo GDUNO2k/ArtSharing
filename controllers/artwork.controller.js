@@ -5,6 +5,8 @@ const User = require("../models/user.model");
 
 
 async function index(req,res) {
+    const categories = await Category.find();
+
     const query = Artwork.find();
 
     // TODO: popular
@@ -12,6 +14,11 @@ async function index(req,res) {
     // filter by title
     if (req.query.keyword) { 
         query.where({ title: { $regex: req.query.keyword, $options: 'i' } })
+    }
+
+    // filter by category
+    if (req.query.category) { 
+        query.where({category: req.query.category })
     }
 
     // pagination
@@ -22,7 +29,7 @@ async function index(req,res) {
 
     const artworks = await query.populate('createdBy').populate('category').sort({ createdAt: -1 }).exec();
 
-    return res.render("artwork/index", {artworks})
+    return res.render("artwork/index", {artworks, categories})
 }
 
 async function create(req,res) {
@@ -101,7 +108,7 @@ async function store(req,res) {
 
 // req.artwork
 async function findOrFail(req,res,next){
-    const artwork = await Artwork.findById(req.params.id).populate("createdBy").exec();
+    const artwork = await Artwork.findById(req.params.id).populate("createdBy").populate("category").exec();
 
     if (!artwork) {
         return res.redirect('/not-found')
@@ -121,6 +128,15 @@ async function requireOwner (req,res,next) {
 
 async function show(req,res) { 
     const artwork = req.artwork;
+    const similarCategoryArtworks = await Artwork.aggregate([
+        { $match: { category: artwork.category._id } },
+        { $sample: { size: 4 } }
+    ]);
+
+    const similarArtistArtworks = await Artwork.aggregate([
+        { $match: { createdBy: artwork.createdBy._id } },
+        { $sample: { size: 3 } }
+    ]);
 
     // increase no. views
     artwork.noViews++;
@@ -131,7 +147,7 @@ async function show(req,res) {
         isOwner = true; 
     }
 
-    return res.render("artwork/show", {artwork, isOwner});
+    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks});
 }
 
 async function edit(req,res) {
@@ -188,14 +204,26 @@ async function update(req,res) {
 
 async function like(req,res) {
     // add logged in user to likes
-    await Category.findByIdAndUpdate(req.params.id, {
-        $push: {likes: req.user._id},
+    await Artwork.findByIdAndUpdate(req.params.id, {
+        $addToSet: {likes: req.user._id},
     });
 
     req.flash.success("Liked artwork!");
     
     // redirect
-    res.redirect(`back`);
+    res.redirect(`/artwork/${req.artwork._id}/show`);
+}
+
+async function unlike(req,res) {
+    // add logged in user to likes
+    await Artwork.findByIdAndUpdate(req.params.id, {
+        $pull: {likes: req.user._id},
+    });
+
+    req.flash.success("Unliked artwork!");
+    
+    // redirect
+    res.redirect(`/artwork/${req.artwork._id}/show`);
 }
 
 async function watchLater(req,res) {
@@ -228,6 +256,7 @@ module.exports = {
 
     show,
     like,
+    unlike,
     watchLater,
 
     requireOwner,

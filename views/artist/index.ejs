@@ -1,79 +1,82 @@
 <%- include('../shared/_header.ejs') %>
 
-    <div class="content-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 channels">
-            <!-- Popular Channels -->
-            <div class="content-block">
-              <div class="cb-header mb-0">
-                <div class="row">
-                  <div class="col-lg-8 col-sm-8 col-xs-10">
-                    <ul class="list-inline">
-                      <li>
-                        <a href="#" class="color-active">Most Popular</a>
-                      </li>
-                      <li><a href="#">Trending</a></li>
-                      <li class="hidden-xs"><a href="#">Most Recent</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-4 col-sm-4 col-xs-2">
-                    <div class="cb-search channels-search">
-                      <form action="#">
-                        <label>
-                          <input
-                            type="search"
-                            placeholder="Search Artists ..."
-                          />
-                          <i class="fa fa-search"></i>
-                        </label>
-                      </form>
-                    </div>
-                  </div>
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 channels">
+        <!-- Popular Channels -->
+        <div class="content-block">
+          <div class="cb-header mb-0">
+            <div class="row">
+              <div class="col-lg-8 col-sm-8 col-xs-10">
+                <ul class="list-inline">
+                  <li>
+                    <a href="#" class="color-active">Most Popular</a>
+                  </li>
+                  <li><a href="#">Trending</a></li>
+                  <li class="hidden-xs"><a href="#">Most Recent</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-4 col-sm-4 col-xs-2">
+                <div class="cb-search channels-search">
+                  <form action="#">
+                    <label>
+                      <input
+                      type="search"
+                      name="keyword"
+                      placeholder="Search Artists ..."
+                      value="<%= req.query.keyword %>"
+                      />
+                      <i class="fa fa-search"></i>
+                    </label>
+                  </form>
                 </div>
               </div>
-              <div class="channels-content">
-                <div class="clearfix"></div>
-                <div class="theme-section">
-                  <div class="row">
-                    <% for(const artist of artists) { %>
-                    <div class="col-md-3 col-sm-4">
-                      <div class="cns-block">
-                        <a href="/artist/<%= artist.email %>/show" class="cns-image">
-                          <img src="/images/video2-7.png" alt="image" />
-                        </a>
-                        <div class="cns-img-small">
-                          <div class="cns-small-wrapp">
-
-                            <% if(artist.avatar) { %>
-                              <img src="<%= artist.avatar %>" alt="small" />
+            </div>
+          </div>
+          <div class="channels-content">
+            <div class="clearfix"></div>
+            <div class="theme-section">
+              <div class="row">
+                <% for(const artist of artists) { %>
+                  <div class="col-md-3 col-sm-4">
+                    <div class="cns-block">
+                      <a href="/artist/<%= artist.email %>/show" class="cns-image">
+                        <img src="/images/video2-7.png" alt="image" />
+                      </a>
+                      <div class="cns-img-small">
+                        <div class="cns-small-wrapp">
+                          
+                          <% if(artist.avatar) { %>
+                            <img src="<%= artist.avatar %>" alt="small" />
                             <% } else { %>    
-                            <img src="/images/ava2.png" alt="small" />
-                            <% } %>
-                            
+                              <img src="/images/ava2.png" alt="small" />
+                              <% } %>
+                              
+                            </div>
+                          </div>
+                          <div class="cns-info">
+                            <h5><%= artist.name %></h5>
+                            <span><%= artist.followers.length%> Followers</span>
+                            <span><%= artist.artworks.length %> Artworks</span>
                           </div>
                         </div>
-                        <div class="cns-info">
-                          <h5><%= artist.name %></h5>
-                          <span>52,217 Subscribers</span>
-                          <span>275 Artworks</span>
-                          <span>21000 Views</span>
-                          <span class="cv-percent">
-                            <span class="cv-circle"></span>
-                            98%</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <% } %>
                   </div>
-                </div>
-                
+                <% } %>
               </div>
-              <div class="content-block head-div head-arrow">
-                <div class="head-arrow-icon">
-                  <i class="cv cvicon-cv-next"></i>
-                </div>
+            </div>
+            
+            <% if (artists.length == 0) { %>
+              <p class="text-center">
+                <em class="text-danger">No data.</em>
+              </p>
+            <% } else { %>
+              
+              <%- include("../shared/_pagination.ejs")  %>
+              
+            <% } %>
+                
+                
               </div>
             </div>
             <!-- /Popular Channels -->
@@ -81,7 +84,7 @@
         </div>
       </div>
     </div>
-
+    
     <%- include('../shared/_footer.ejs') %>
-  </body>
-</html>
+  
+  
