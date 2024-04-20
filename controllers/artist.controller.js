@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const Artwork = require("../models/artwork.model");
+const Album = require("../models/album.model");
 
 async function index (req, res) {
 
@@ -31,33 +32,33 @@ async function findOrFail(req,res,next){
     } 
 
     req.artist = artist;
-    next();
-}
- 
-async function show(req, res) { 
-    // check if owner
+
+     // check if owner
     let isOwner = false;
     if(req.user) {
         isOwner = (req.params.email === req.user.email);
     }
 
-    const artist = await User.findOne({email: req.params.email});
-
+    req.isOwner = isOwner;
+    next();
+}
+ 
+async function show(req, res) { 
+    const artist = req.artist;
     // artworks
     const query = Artwork.find({ createdBy: artist._id, hidden: false});
 
     // sorting
-    if (req.query.sort) {
-        switch(req.query.sort) {
-            case 'most-liked': 
-
-                break;
-            case 'most-viewed':
-                query.sort({noViews: -1});
-                break;
-            default: // recent
-                query.sort({createdAt: -1});
-        }
+    req.query.sort = req.query.sort || "recent";
+    switch(req.query.sort) {
+        case 'most-liked': 
+            query.sort({ likes: -1 });
+            break;
+        case 'most-viewed':
+            query.sort({noViews: -1});
+            break;
+        default:
+            query.sort({createdAt: -1});
     }
 
     // pagination
@@ -68,11 +69,17 @@ async function show(req, res) {
 
     const artworks = await query.populate('category').exec();
 
-    // invalid email -> artist not exist
-    if(!artist) {
-        return res.redirect("/not-found");
-    }
-    res.render("artist/show", {artist, artworks, isOwner}) ;
+    res.render("artist/show", {artist, artworks}) ;
+}
+
+async function albums(req, res) { 
+    const artist = req.artist;
+
+    const query = Album.find({ createdBy: artist._id});
+
+    const albums = await query.populate('artworks').exec();
+
+    res.render("artist/albums", {artist, albums}) ;
 }
 
 async function follow(req,res) {
@@ -81,10 +88,44 @@ async function follow(req,res) {
         $addToSet: {followers: req.user._id},
     });
 
-    req.flash.success("Follow artist!"); 
+    await User.findOneAndUpdate({email: req.user.email}, {
+        $addToSet: {following: req.artist._id},
+    });
+
+    req.flash.success("Followed artist!"); 
     
     // redirect
     res.redirect(`/artist/${req.artist.email}/show`);
+}
+
+async function unfollow(req,res) {
+    // add logged in user to likes 
+    await User.findOneAndUpdate({email: req.params.email}, {
+        $pull: {followers: req.user._id},
+    });
+
+    await User.findOneAndUpdate({email: req.user.email}, {
+        $pull: {following: req.artist._id},
+    });
+
+    req.flash.success("Unfollowed artist!"); 
+    
+    // redirect
+    res.redirect(`/artist/${req.artist.email}/show`);
+}
+
+async function following(req, res) {
+    const artist = req.artist
+    const following = await User.find({_id: {$in: req.artist.following}});
+
+    res.render(`artist/following`, {following, artist})
+}
+
+async function followers(req, res) {
+    const artist = req.artist
+    const followers = await User.find({_id: {$in: req.artist.followers}});
+
+    res.render(`artist/followers`, {followers, artist})
 }
 
 module.exports = {
@@ -92,5 +133,9 @@ module.exports = {
     findOrFail,
 
     show,
+    albums,
     follow,
+    unfollow,
+    following,
+    followers,
 }

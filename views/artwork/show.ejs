@@ -76,7 +76,7 @@
                                     <a href="/artwork/<%= artwork._id %>/like">
                                         <i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Like this post"></i>
                                     </a>
-                                 <% } else { %>
+                                 <% } else if(req.user)  { %>
                                     <a href="/artwork/<%= artwork._id %>/unlike" class="active">
                                         <i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Unlike this post"></i>
                                     </a>
@@ -125,8 +125,7 @@
                                     <a href="#" class="btn">Purchase</a>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="showless hidden-xs">
-                                    <a href="#"></a>
+                                <div class="showless hidden-xs" >
                                 </div>
                             </div>
                             <!-- END tab-1 -->

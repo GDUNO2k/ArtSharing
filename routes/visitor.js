@@ -30,7 +30,16 @@ router.get('/auth/logout', authController.logout);
 // artists
 const artistController = require("../controllers/artist.controller");
 router.get("/artist", artistController.index);
-router.get("/artist/:email/show", artistController.show);
+router.get("/artist/:email/show", 
+    artistController.findOrFail,
+    artistController.show);
+router.get("/artist/:email/albums", 
+    artistController.findOrFail,
+    artistController.albums);
+router.get("/artist/:email/following", 
+    artistController.findOrFail,
+    artistController.following
+);
 
 // artworks
 const artworkController = require("../controllers/artwork.controller");
@@ -38,6 +47,13 @@ router.get("/artwork",artworkController.index)
 router.get('/artwork/:id/show', 
     artworkController.findOrFail,
     artworkController.show
+);
+
+//album
+const albumController = require("../controllers/album.controller");
+router.get('/album/:id/show', 
+    albumController.findOrFail,
+    albumController.show
 );
 
 // categories

@@ -49,3 +49,24 @@
     height: 120px;
     object-fit: cover;
 }
+
+/* artist show */
+.upload-artwork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+
+
+    color: #ea2c5a;
+}
+
+.upload-artwork i {
+    font-size: 68px;
+}
+
+.upload-artwork a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

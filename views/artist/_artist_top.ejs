@@ -1,0 +1,89 @@
+<link href="/css/font-circle-video.css" rel="stylesheet">
+
+<!-- channel -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="img">
+            <div class="img-image">
+                <img src="/images/channel-banner.png" alt="" class="c-banner">
+            </div>
+            <div class="c-avatar">
+                <img src="/images/logo.svg" alt="">
+            </div>
+            <a href="#" class="add"><i class="cv cvicon-cv-plus"></i></a>
+            <div class="c-social hidden-xs">
+                Social
+                <a href="#" class="fb"><i class="fa fa-
+                    facebook"></i></a>
+                <a href="#" class="tw"><i class="fa fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ///channel -->
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="channel-details">
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-2 col-xs-12">
+                            <div class="c-details">
+                                <div class="c-name">
+                                    <%= artist.name %>
+                                </div>
+                                <div class="c-nav">
+                                    <ul class="list-inline">
+                                        <li class="<%= req.url.includes('show') ? 'color-active' : '' %>"><a href="/artist/<%= artist.email %>/show">Artworks</a></li>
+                                        <li class="<%= req.url.includes("albums") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/albums">Albums</a></li>
+                                        <li class="<%= req.url.includes("shop") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/shop">Shop</a></li>
+                                        <li class="<%= req.url.includes("following") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/following">Following</a></li>
+                                        <% if(req.isOwner) { %>
+                                        <li class="<%= req.url.includes("followers") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/followers">Followers</a></li>
+                                        <% } %>    
+                                        <li class="<%= req.url.includes("about") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/about">About</a></li>
+                                    </ul>
+                                   
+                                </div>
+                                <div class="c-sub hidden-xs">
+                                    <div class="c-sub-wrap">
+                                        <% if(req.user && req.user.following.includes(artist._id)) { %>
+                                            <div class="btn-group dropdown" style="float: left">
+                                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Following
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="/artist/<%= artist.email %>/unfollow">
+                                                            <i class="cv cvicon-cv-relevant"></i>
+                                                            Unfollow
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="c-f">
+                                                <a <%- req.isOwner ? '':  "href='/artist/"+ artist.email + "/follow'" %>> Follow </a>
+                                            </div>
+                                        <% } %>
+
+                                        <div class="c-s">
+                                            <%= artist.followers.length%>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

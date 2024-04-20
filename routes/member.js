@@ -78,6 +78,41 @@ router.get('/artist/:email/follow',
     artistController.findOrFail,
     artistController.follow,
 );
+router.get('/artist/:email/unfollow', 
+    artistController.findOrFail,
+    artistController.unfollow,
+);
+router.get('/artist/:email/followers', 
+    artistController.findOrFail,
+    artistController.followers,
+);
+
+// album
+ const albumController = require("../controllers/album.controller")
+router.get('/album/create', albumController.create);
+router.post('/album/create', 
+    albumController.validateAlbum,
+    albumController.store
+);
+
+router.get('/album/:id/edit', 
+    albumController.findOrFail,
+    albumController.requireOwner,
+    albumController.edit
+);
+router.post('/album/:id/edit', 
+    albumController.findOrFail,
+    albumController.requireOwner,
+    upload.single('file'),
+    albumController.validateAlbum,
+    albumController.update
+);
+router.post('/album/:id/destroy', 
+    albumController.findOrFail,
+    albumController.requireOwner,
+    albumController.destroy
+);
+
 
 
 // follow

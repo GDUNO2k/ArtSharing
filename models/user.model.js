@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema({
       ref: 'Artwork'
     }
   ],
+  albums: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Album'
+    }
+  ],
   followers: [
     {
       type: mongoose.SchemaTypes.ObjectId,
