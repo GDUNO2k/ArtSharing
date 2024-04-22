@@ -32,19 +32,20 @@
                               <% } %>
 
                               <% for(const album of albums) { %>
-                              <div class="col-lg-3 col-sm-6 col-xs-12 py-3">
+                              <div class="col-lg-3 col-sm-6 col-xs-12">
                                 <div class="b-playlist">
                                   <div class="v-img">
-
-                                    <% for(let i = 1; i <= 2; i++) { %>
-                                      <img src="<%= album.artworks[i] ? album.artworks[i].path : "/images/playlist-1.png"  %>" alt="" class="l-<%= i  %>">
-                                    <% } %> 
-
-                                    <a href="/album/<%= album._id %>/show"><img src="<%= album.artworks[0] ? album.artworks[0].path : "/images/playlist-1.png"  %>" alt="" class="l-3"></a>
-                                    <div class="items"><%= album.artworks.length %></div>
+                                    <img src="/images/video1-1.png" alt="" class="l-1">
+                                    <img src="/images/video1-2.png" alt="" class="l-2">
+                                    <a href="single-video-tabs.html"><img src="/images/playlist-1.png" alt="" class="l-3"></a>
+                                    <div class="items">20</div>
                                   </div>
-                                  <div class="v-desc text-center">
-                                    <a href="#"><%= album.title %></a>
+                                  <div class="v-desc">
+                                    <a href="#">There Can Only Be One! Introducing Tanc &amp; Hercules</a>
+                                  </div>
+                                  <div class="v-views">
+                                    127,548 views.
+                                    <span class="v-percent"><span class="v-circle"></span> 78%</span>
                                   </div>
                                 </div>
                               </div>

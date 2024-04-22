@@ -2,6 +2,7 @@ const { check, validationResult } = require("express-validator");
 const Artwork = require("../models/artwork.model");
 const Category = require("../models/category.model");
 const User = require("../models/user.model");
+const Album = require("../models/album.model");
 
 
 async function index(req,res) {
@@ -100,7 +101,17 @@ async function store(req,res) {
         $push: {artworks: artwork._id}
     });
 
+    
     req.flash.success("Created successfully!");
+
+    // if album add to album
+    if(req.query.album) {
+        const album = await Album.findByIdAndUpdate(req.query.album, {
+            $push: {artworks: artwork._id}
+        });
+
+        return res.redirect(`/album/${album._id}/show`);
+    }
     
     // redirect
     res.redirect(`/artwork/${artwork._id}/show`);

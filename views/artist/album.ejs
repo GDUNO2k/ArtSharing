@@ -1,0 +1,50 @@
+<% bodyClass = "channel" %>
+
+<%- include("../shared/_header.ejs") %>
+
+<%- include("./_artist_top.ejs") %>
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 channels">
+
+                <!-- Featured Videos -->
+                <div class="content-block ">
+                
+                    <div class="channels-content">
+                        <div class="clearfix"></div>
+                        <div class="theme-section">
+                        <div class="row">
+                           <div class="cb-content py-3">
+                            <div class="row">
+
+                            <% if(req.isOwner) { %>
+                            <div class=" col-lg-3 col-sm-6 videoitem">
+                                <div class="b-video upload-artwork">
+                                    <a href="/artwork/create?album=<%= album._id %>">
+                                        <i class="fa fa-plus"></i>
+                                        Upload artwork
+                                    </a>
+                                </div>
+                            </div>
+                            <% } %>
+
+                            <% for(const artwork of album.artworks) { %>
+                                <%- include("../artwork/_artwork.ejs", {artwork}) %>
+                            <% } %>
+                        </div>
+                    </div>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Featured Videos -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../shared/_footer.ejs") %>

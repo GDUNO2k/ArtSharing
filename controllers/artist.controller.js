@@ -75,11 +75,17 @@ async function show(req, res) {
 async function albums(req, res) { 
     const artist = req.artist;
 
-    const query = Album.find({ createdBy: artist._id});
-
-    const albums = await query.populate('artworks').exec();
+    const albums = await Album.find({ createdBy: artist._id}).populate('artworks').exec();
 
     res.render("artist/albums", {artist, albums}) ;
+}
+
+async function album(req, res) { 
+    const artist = req.artist;
+    // album
+    const album = await Album.findById(req.params.album).populate("artworks").exec();
+
+    res.render("artist/album", {artist, album}) ;
 }
 
 async function follow(req,res) {
@@ -134,6 +140,7 @@ module.exports = {
 
     show,
     albums,
+    album,
     follow,
     unfollow,
     following,

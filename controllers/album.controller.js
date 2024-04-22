@@ -1,6 +1,7 @@
 const { check, validationResult } = require("express-validator");
 const Album = require("../models/album.model");
 const User = require("../models/user.model");
+const Artwork = require("../models/artwork.model");
 
 
 async function create(req,res) {
@@ -44,12 +45,12 @@ async function store(req,res) {
     req.flash.success("Created successfully!");
     
     // redirect
-    res.redirect(`/album/${album._id}/show`);
+    res.redirect(`/artist/${req.user.email}/album/${album._id}`);
 }
 
 // req.album
 async function findOrFail(req,res,next){
-    const album = await Album.findById(req.params.id).populate("createdBy").populate("category").exec();
+    const album = await Album.findById(req.params.id).populate("createdBy").exec();
 
     if (!album) {
         return res.redirect('/not-found')
@@ -75,55 +76,37 @@ async function requireOwner (req,res,next) {
 
 async function show(req,res) { 
     const album = req.album;
+    const artist = album.createdBy;
+    const albums = await Album.find({_id: {$in: artist.albums}});
+    const artworks = await Artwork.find({_id: {$in: album.artworks}}).populate("category").exec();
 
-    return res.render("album/show", {album});
+    return res.render("album/show", {artist, album, artworks, albums});
 }
 
 async function edit(req,res) {
-    const categories = await Category.find();
     const album = req.album;
 
-    return res.render("album/edit", {album, categories});
+    return res.render("album/edit", {album});
 }
 
 async function update(req,res) {
-    const categories = await Category.find();
     const album = req.album;
-    const oldCategory = req.album.category;
 
     // get user data
-    const { title,description,category,tags } = req.body;
+    const { title,description } = req.body;
 
     Object.assign(album, {
-        title, description, category, tags, 
+        title, description
     });
 
     // validate user data
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.render("album/edit", {album, categories, errors: errors.mapped()})
-    }
-
-    // update file path if new
-    if (req.file) {
-        album.path = "/uploads/"+ req.file.filename;
+        return res.render("album/edit", {album, errors: errors.mapped()})
     }
 
     await album.save()
-
-    // update category
-    if (!oldCategory.equals(album.category)) {
-        // remove from old category
-        await Category.findByIdAndUpdate(oldCategory, {
-            $pull: {albums: album._id}
-        });
-
-        // add to new category
-        await Category.findByIdAndUpdate(category, {
-            $push: {albums: album._id}
-        });
-    }
     
     req.flash.success("Updated successfully!");
     

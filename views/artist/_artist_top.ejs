@@ -37,8 +37,8 @@
                                 </div>
                                 <div class="c-nav">
                                     <ul class="list-inline">
-                                        <li class="<%= req.url.includes('show') ? 'color-active' : '' %>"><a href="/artist/<%= artist.email %>/show">Artworks</a></li>
-                                        <li class="<%= req.url.includes("albums") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/albums">Albums</a></li>
+                                        <li class="<%= req.url.includes('artist') && req.url.includes('show') ? 'color-active' : '' %>"><a href="/artist/<%= artist.email %>/show">Artworks</a></li>
+                                        <li class="<%= req.url.includes("album") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/albums">Albums</a></li>
                                         <li class="<%= req.url.includes("shop") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/shop">Shop</a></li>
                                         <li class="<%= req.url.includes("following") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/following">Following</a></li>
                                         <% if(req.isOwner) { %>

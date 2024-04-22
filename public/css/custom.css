@@ -3,6 +3,11 @@
     padding-bottom: 30px;
 }
 
+.px-3 {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .c-avatar img {
     max-width: 176px;
     max-height: 157px;
