@@ -139,6 +139,13 @@ async function requireOwner (req,res,next) {
 
 async function show(req,res) { 
     const artwork = req.artwork;
+
+    let albums = [];
+
+    if(req.user && req.user.albums) {
+        albums = await Album.find({_id: {$in: req.user.albums}});
+    }
+
     const similarCategoryArtworks = await Artwork.aggregate([
         { $match: { category: artwork.category._id } },
         { $sample: { size: 4 } }
@@ -158,7 +165,7 @@ async function show(req,res) {
         isOwner = true; 
     }
 
-    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks});
+    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks, albums});
 }
 
 async function edit(req,res) {

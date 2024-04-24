@@ -65,10 +65,14 @@
                                 <i class="cv cvicon-cv-download" data-toggle="tooltip" data-placement="top" title="Download"></i>
                                 <span>Download</span>
                             </a>
+
+                            <% if(req.user) { %>
                             <a href="#" data-tab="tab-5">
                                 <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to"></i>
                                 <span>Add to</span>
                             </a>
+                            <% } %>
+
                             <div class="acide-panel hidden-xs">
                                  <a href="#"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
                                  
@@ -196,17 +200,19 @@
                             <!-- END tab-3 -->
 
                             <!-- BEGIN tab-5 -->
+                            <% if(req.user) { %>
                             <div class="tab-5">
                                 <h4>Add to Album:</h4>
                                 <div class="block-list">
+                                    <% for(const album of albums) { %>
                                     <div>
-                                        <a href="/artwork/<%= artwork._id %>/watch-later">
+                                        <a href="/artwork/<%= album._id %>/?album=<%= album._id %>">
                                             <i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i>
-                                            <span class="name">Watch Later</span>
+                                            <span class="name"><%= album.title %>></span>
                                             <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
                                         </a>
                                     </div>
-                                    
+                                    <% } %>
                                     <div class="active">
                                         <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Playlist"></i>
                                         <span class="name">Review Videos</span>
@@ -250,6 +256,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <% } %>
                             <!-- END tab-5 -->
                         </div>
                         <!-- END tabs-content -->
