@@ -1,0 +1,45 @@
+<div class="col-lg-3 col-sm-6 videoitem">
+    <div class="b-video">
+        <div class="v-img">
+            <a href="/artwork/<%= order._id %>/show">
+                <img src="<%= order.path %>" alt="" />
+            </a>
+        </div>
+        <div class="v-desc">
+            <a href="/artwork/<%= order._id %>/show"><%= order.title %></a>
+        </div> 
+        <div class="v-views">
+            <div class="for-sale">
+                <div class="author">
+                        <a href="/artist/test1@gmail.com/show">
+                            <img src="/uploads/1712546934470-ava5[1].png" alt="" class="sv-avatar">
+                        </a>
+                        <div class="sv-name">
+                            <div><a href="#">test001</a> . 17 Artworks</div>
+                            <div class="c-sub hidden-xs">
+                                <div class="c-f">
+                                    27 followers
+                                </div>
+                                <div class="c-s"<div class="sv-views-count">
+                                    27 views
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <a href="#" class="author-btn-add"><i class="cv cvicon-cv-plus"></i></a>
+                    </div>
+                    <div class="author-border"></div>
+                    
+                    <div class="clearfix"></div>
+                </div>
+                <span><i class="fa fa-check"></i> </span>
+    
+                <div class="pull-right">
+                    <span class="price">$<%= order.price %></span>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>

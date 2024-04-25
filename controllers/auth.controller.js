@@ -124,8 +124,8 @@ async function handleLogin(req, res) {
   req.session.email = user.email;
 
   // redirect user with message
-  if (req.query.url) {
-    return res.redirect(req.query.url);
+  if (req.query.ref) {
+    return res.redirect(req.query.ref);
   }
 
   res.redirect("/");

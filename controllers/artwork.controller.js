@@ -3,6 +3,9 @@ const Artwork = require("../models/artwork.model");
 const Category = require("../models/category.model");
 const User = require("../models/user.model");
 const Album = require("../models/album.model");
+const sharp = require("sharp");
+const path = require("path");
+const imageSize = require("image-size")
 
 
 async function index(req,res) {
@@ -64,6 +67,13 @@ const validateArtwork = [
         
         return true;
     }),
+    check("price").trim().custom((value, { req }) => {
+        if (req.body.forSale && value <= 0) {
+            throw new Error("Invalid price")
+        }
+        
+        return true;
+    })
 ];
 
 async function store(req,res) {
@@ -73,11 +83,13 @@ async function store(req,res) {
     const errors = validationResult(req)
 
     // get user data 
-    const { title,description,category,tags } = req.body;
+    const { title,description,category,tags,forSale,price } = req.body;
     const artwork = new Artwork({
         title, description, 
         category, 
         tags, 
+        forSale,
+        price
     });
 
     if (!errors.isEmpty()) {
@@ -85,11 +97,24 @@ async function store(req,res) {
         return res.render("artwork/create", {artwork, categories,errors: errors.mapped()})
     }
 
-    artwork.path = "/uploads/"+ req.file.filename;
+    artwork.pathOriginal = "public/uploads/"+ req.file.filename;
+    const {width, height} = imageSize(req.file.path);
+    artwork.originalSize = (width + "-" + height)
 
+    // -- resize
+    artwork.path = "--";
     // owner
     artwork.createdBy = req.user._id;
-    await artwork.save()
+    await artwork.save(); // save for id
+
+    const filename = 'resized_'+ artwork._id + path.extname(req.file.originalname);
+    sharp(req.file.path)
+        .resize(700)
+        .toFile('public/uploads/'+ filename);
+
+    artwork.path = '/uploads/' + filename;
+
+    await artwork.save();
 
     //add to owner.artworks
     await User.findByIdAndUpdate(req.user._id, {
@@ -181,10 +206,10 @@ async function update(req,res) {
     const oldCategory = req.artwork.category;
 
     // get user data
-    const { title,description,category,tags } = req.body;
+    const { title,description,category,tags, forSale, price } = req.body;
 
     Object.assign(artwork, {
-        title, description, category, tags, 
+        title, description, category, tags, forSale, price
     });
 
     // validate user data
@@ -222,30 +247,42 @@ async function update(req,res) {
 
 async function like(req,res) {
     // add logged in user to likes
-    await Artwork.findByIdAndUpdate(req.params.id, {
+    await Artwork.findByIdAndUpdate(req.artwork._id, {
         $addToSet: {likes: req.user._id},
+    });
+
+     // add logged in user to likes
+    await User.findByIdAndUpdate(req.user._id, {
+        $addToSet: {likes: req.artwork._id},
     });
 
     req.flash.success("Liked artwork!");
     
     // redirect
+    if(req.query.url) {
+        return res.redirect(req.query.url);
+    }
     res.redirect(`/artwork/${req.artwork._id}/show`);
 }
 
 async function unlike(req,res) {
     // add logged in user to likes
-    await Artwork.findByIdAndUpdate(req.params.id, {
+    await Artwork.findByIdAndUpdate(req.artwork._id, {
         $pull: {likes: req.user._id},
+    });
+
+    await User.findByIdAndUpdate(req.user._id, {
+        $pull: {likes: req.artwork._id},
     });
 
     req.flash.success("Unliked artwork!");
     
     // redirect
-    res.redirect(`/artwork/${req.artwork._id}/show`);
-}
-
-async function watchLater(req,res) {
+    if(req.query.url) {
+        return res.redirect(req.query.url);
+    }
     
+    res.redirect(`/artwork/${req.artwork._id}/show`);
 }
 
 async function destroy(req,res) {
@@ -263,6 +300,15 @@ async function destroy(req,res) {
     res.redirect(`/artist/${req.user.email}/show`);
 }
 
+async function download(req,res) {
+    const filename = req.artwork._id + path.extname(req.artwork.pathOriginal);
+
+    res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"');
+    res.setHeader('Content-Type', 'application/octet-stream');
+
+    res.sendFile(path.resolve(req.artwork.pathOriginal));
+}
+
 module.exports = {
     index,
 
@@ -275,7 +321,7 @@ module.exports = {
     show,
     like,
     unlike,
-    watchLater,
+    download,
 
     requireOwner,
     edit,

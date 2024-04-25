@@ -1,10 +1,11 @@
 const User = require("../models/user.model");
 const Artwork = require("../models/artwork.model");
 const Album = require("../models/album.model");
+const Order = require("../models/order.model");
 
 async function index (req, res) {
 
-    const query = User.find({ role: {$ne : "admin"} });
+    const query = User.find();
 
     // filter by name
     if (req.query.keyword) { 
@@ -13,7 +14,7 @@ async function index (req, res) {
     
 
     // pagination
-    req.pagination.perPage = 1;
+    req.pagination.perPage = 8;
     const totalResults = await query.clone().countDocuments();
     req.pagination.numPages = Math.ceil(totalResults/req.pagination.perPage);
 
@@ -74,18 +75,28 @@ async function show(req, res) {
 
 async function albums(req, res) { 
     const artist = req.artist;
+    await artist.populate("likes");
+    await artist.populate("orders");
 
     const albums = await Album.find({ createdBy: artist._id}).populate('artworks').exec();
 
     res.render("artist/albums", {artist, albums}) ;
 }
 
-async function album(req, res) { 
+async function likes(req, res) { 
     const artist = req.artist;
-    // album
-    const album = await Album.findById(req.params.album).populate("artworks").exec();
 
-    res.render("artist/album", {artist, album}) ;
+    const artworks = await Artwork.find({_id: {$in: req.artist.likes}}).exec();
+
+    res.render("artist/likes", {artist, artworks}) ;
+}
+
+async function orders(req, res) { 
+    const artist = req.artist;
+
+    const orders = await Order.find({_id: {$in: req.artist.orders}}).exec();
+
+    res.render("artist/orders", {artist, orders}) ;
 }
 
 async function follow(req,res) {
@@ -134,15 +145,49 @@ async function followers(req, res) {
     res.render(`artist/followers`, {followers, artist})
 }
 
+async function shop(req,res) {
+    const artist = req.artist;
+    // artworks
+    const query = Artwork.find({ _id: {$in: artist.artworks}, hidden: false, forSale: true});
+
+    // sorting
+    req.query.sort = req.query.sort || "recent";
+    switch(req.query.sort) {
+        case 'most-liked': 
+            query.sort({ likes: -1 });
+            break;
+        case 'most-viewed':
+            query.sort({noViews: -1});
+            break;
+        default:
+            query.sort({createdAt: -1});
+    }
+
+    // pagination
+    req.pagination.perPage = 8;
+    const totalResults = await query.clone().countDocuments();
+    req.pagination.numPages = Math.ceil(totalResults/req.pagination.perPage);
+    query.skip((req.pagination.page-1) * req.pagination.perPage).limit(req.pagination.perPage);
+
+    const artworks = await query.populate('category').exec();
+
+    res.render("artist/shop", {artist, artworks}) ;
+}
+
 module.exports = {
     index,
     findOrFail,
 
     show,
     albums,
-    album,
+    likes,
+    orders,
+    
     follow,
     unfollow,
     following,
     followers,
+
+    shop
+
 }

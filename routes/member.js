@@ -71,6 +71,10 @@ router.get('/artwork/:id/unlike',
     artworkController.findOrFail,
     artworkController.unlike,
 );
+router.get('/artwork/:id/download', 
+    artworkController.findOrFail,
+    artworkController.download,
+);
 
 // interact with artist
 const artistController = require("../controllers/artist.controller")
@@ -94,7 +98,6 @@ router.post('/album/create',
     albumController.validateAlbum,
     albumController.store
 );
-
 router.get('/album/:id/edit', 
     albumController.findOrFail,
     albumController.requireOwner,
@@ -112,15 +115,30 @@ router.post('/album/:id/destroy',
     albumController.requireOwner,
     albumController.destroy
 );
+router.get('/album/:id/add-artwork', 
+    albumController.findOrFail,
+    albumController.requireOwner,
+    albumController.addArtwork
+);
+router.get('/album/:id/remove-artwork', 
+    albumController.findOrFail,
+    albumController.requireOwner,
+    albumController.removeArtwork
+);
 
-
-
-// follow
-
-// manage albums
+// shop
+const shopController = require("../controllers/shop.controller");
+router.get("/shop",shopController.index)
+router.get('/shop/:id/purchase', 
+    shopController.findOrFail,
+    shopController.purchase,
+);
+router.post('/shop/:id/purchase', 
+    shopController.findOrFail,
+    shopController.handlePurchase,
+);
 
 // manage orders (bought artworks)
 
-// manage favorite images
 
 module.exports = router;

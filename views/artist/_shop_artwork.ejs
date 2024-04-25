@@ -11,6 +11,7 @@
             <a href="/artwork/<%= artwork._id %>/show"><%= artwork.title %></a>
 
             <div class="pull-right">
+
                 <% if(req.user && artwork.likes.includes(req.user._id)) { %>
                     <a href="/artwork/<%= artwork._id %>/unlike?url=<%= req.url %>" class="active">
                         <i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Unlike this post"></i>
@@ -26,6 +27,15 @@
         <div class="v-views">
             <i class="fa fa-eye"></i> <%= artwork.noViews %> Views 
             <span style="margin-left: 15px"><i class="fa fa-heart"></i> <%= artwork.likes.length %> Likes</span>
+            <div class="for-sale">
+                <span><i class="fa fa-check"></i> <%= artwork.buyers.length %> Sales</span>
+    
+                <div class="pull-right">
+                    <span class="price">$<%= artwork.price %></span>
+                </div>
+            </div>
         </div>
+        
+
     </div>
 </div>

@@ -31,42 +31,57 @@
                               </div>
                               <% } %>
 
-                              <% for(const album of albums) { %>
                               <div class="col-lg-3 col-sm-6 col-xs-12 py-3">
-                                <div class="b-playlist">
-                                  <div class="v-img">
+                                  <div class="b-playlist">
+                                    <div class="v-img">
+                                      <% for(let i = 1; i <= 2; i++) { %>
+                                        <img src="<%= req.artist.likes[i] ? req.artist.likes[i].path : "/images/empty.jpg"  %>" alt="" class="l-<%= i  %>">
+                                      <% } %> 
 
-                                    <% for(let i = 1; i <= 2; i++) { %>
-                                      <img src="<%= album.artworks[i] ? album.artworks[i].path : "/images/playlist-1.png"  %>" alt="" class="l-<%= i  %>">
-                                    <% } %> 
-
-                                    <a href="/album/<%= album._id %>/show"><img src="<%= album.artworks[0] ? album.artworks[0].path : "/images/playlist-1.png"  %>" alt="" class="l-3"></a>
-                                    <div class="items"><%= album.artworks.length %></div>
-                                  </div>
-                                  <div class="v-desc text-center">
-                                    <a href="#"><%= album.title %></a>
+                                      <a href="/artist/<%= req.artist.email %>/likes"><img src="<%= req.artist.likes[0] ? req.artist.likes[0].path : "/images/empty.jpg" %>" alt="" class="l-3"></a>
+                                      <div class="items"><%= req.artist.likes.length  %></div>
+                                    </div>
+                                    <div class="v-desc text-center">
+                                      <a href="/artist/<%= req.artist.email %>/likes">Favorite artworks</a>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
+
+                                <div class="col-lg-3 col-sm-6 col-xs-12 py-3">
+                                  <div class="b-playlist">
+                                    <div class="v-img">
+                                      <% for(let i = 1; i <= 2; i++) { %>
+                                        <img src="<%= req.artist.orders[i] ? req.artist.orders[i].path : "/images/empty.jpg"  %>" alt="" class="l-<%= i  %>">
+                                      <% } %> 
+
+                                      <a href="/artist/<%= req.artist.email %>/orders"><img src="<%= req.artist.orders[0] ? req.artist.orders[0].path : "/images/empty.jpg" %>" alt="" class="l-3"></a>
+                                      <div class="items"><%= req.artist.orders.length  %></div>
+                                    </div>
+                                    <div class="v-desc text-center">
+                                      <a href="/artist/<%= req.artist.email %>/orders">Purchased artworks</a>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <% for(const album of albums) { %>
+                                <div class="col-lg-3 col-sm-6 col-xs-12 py-3">
+                                  <div class="b-playlist">
+                                    <div class="v-img">
+
+                                      <% for(let i = 1; i <= 2; i++) { %>
+                                        <img src="<%= album.artworks[i] ? album.artworks[i].path : "/images/empty.jpg"  %>" alt="" class="l-<%= i  %>">
+                                      <% } %> 
+
+                                      <a href="/album/<%= album._id %>/show"><img src="<%= album.artworks[0] ? album.artworks[0].path : "/images/empty.jpg"  %>" alt="" class="l-3"></a>
+                                      <div class="items"><%= album.artworks.length %></div>
+                                    </div>
+                                    <div class="v-desc text-center">
+                                      <a href="/album/<%= album._id %>/show"><%= album.title %></a>
+                                    </div>
+                                  </div>
+                                </div>
                               <% } %>
 
-                              <div class="col-lg-3 col-sm-6 col-xs-12">
-                                <div class="b-playlist">
-                                  <div class="v-img">
-                                    <img src="/images/video1-6.png" alt="" class="l-1">
-                                    <img src="/images/video1-4.png" alt="" class="l-2">
-                                    <a href="single-video-tabs.html"><img src="/images/playlist-4.png" alt="" class="l-3"></a>
-                                    <div class="items">27</div>
-                                  </div>
-                                  <div class="v-desc">
-                                    <a href="#">Top 10 NEW 3DS Games Of 2016 that blew our mind</a>
-                                  </div>
-                                  <div class="v-views">
-                                    79,239,852 views.
-                                    <span class="v-percent"><span class="v-circle"></span> 84%</span>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>

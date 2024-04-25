@@ -26,6 +26,15 @@
         <div class="v-views">
             <i class="fa fa-eye"></i> <%= artwork.noViews %> Views 
             <span style="margin-left: 15px"><i class="fa fa-heart"></i> <%= artwork.likes.length %> Likes</span>
+
+            <% if(req.isOwner) { %>
+                <a href="/album/<%= album._id %>/remove-artwork?artwork=<%= artwork._id %>&url=<%= req.url %>" 
+                    class="pull-right" 
+                    onclick="return confirm('Are you sure to remove?')"
+                >
+                    <i class="fa fa-times" data-toggle="tooltip" data-placement="top" title="Remove from Album"></i>
+                </a>
+            <% } %>
         </div>
     </div>
 </div>

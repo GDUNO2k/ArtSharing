@@ -75,3 +75,22 @@
     flex-direction: column;
     align-items: center;
 }
+
+/* shop */
+.price {
+    padding: 0 15px;
+    font-size: x-large;
+}
+
+.for-sale {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.b-playlist img {
+    max-height: 155px;
+}

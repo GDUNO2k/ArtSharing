@@ -113,48 +113,46 @@ async function update(req,res) {
     // redirect
     res.redirect(`/album/${album._id}/show`);
 }
-
-async function like(req,res) {
-    // add logged in user to likes
-    await Album.findByIdAndUpdate(req.params.id, {
-        $addToSet: {likes: req.user._id},
-    });
-
-    req.flash.success("Liked album!");
-    
-    // redirect
-    res.redirect(`/album/${req.album._id}/show`);
-}
-
-async function unlike(req,res) {
-    // add logged in user to likes
-    await Album.findByIdAndUpdate(req.params.id, {
-        $pull: {likes: req.user._id},
-    });
-
-    req.flash.success("Unliked album!");
-    
-    // redirect
-    res.redirect(`/album/${req.album._id}/show`);
-}
-
-async function watchLater(req,res) {
-    
-}
-
+ 
 async function destroy(req,res) {
-    const category = req.album.category;
-
     await Album.findByIdAndDelete(req.params.id);
 
-    // remove from category
-    await Category.findByIdAndUpdate(category, {
+    // remove from user
+    await User.findByIdAndUpdate(req.user._id, {
         $pull: {albums: req.album._id}
     });
 
     req.flash.success("Deleted successfully!");
 
-    res.redirect(`/artist/${req.user.email}/show`);
+    res.redirect(`/artist/${req.user.email}/albums`);
+}
+
+async function addArtwork(req,res) {
+    const artwork = await Artwork.findById(req.query.artwork);
+
+    if(!artwork) return res.redirect("/not-found");
+
+    req.album.artworks.addToSet(artwork._id);
+    await req.album.save();
+
+    req.flash.success("Added to album successfully!");
+
+    res.redirect(`/artwork/${artwork._id}/show`);
+}
+
+async function removeArtwork(req,res) {
+    const artwork = await Artwork.findById(req.query.artwork);
+
+    if(!artwork) return res.redirect("/not-found");
+
+    req.album.artworks.pull(artwork._id);
+    await req.album.save();
+
+    req.flash.success("Removed from album successfully!");
+
+    if(req.query.url) return res.redirect(req.query.url);
+
+    res.redirect(`/artwork/${artwork._id}/show`);
 }
 
 module.exports = {
@@ -164,11 +162,9 @@ module.exports = {
     store,
 
     findOrFail,
-
     show,
-    like,
-    unlike,
-    watchLater,
+    addArtwork,
+    removeArtwork,
 
     requireOwner,
     edit,

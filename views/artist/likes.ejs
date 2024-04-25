@@ -17,14 +17,17 @@
                         <div class="theme-section">
                         <div class="row">
                            <div class="cb-content py-3">
+
+                            <h3 class="text-muted">Favorite Artworks</h3>
+
                             <div class="row">
 
                             <% if(req.isOwner) { %>
                             <div class=" col-lg-3 col-sm-6 videoitem">
                                 <div class="b-video upload-artwork">
-                                    <a href="/artwork/create?album=<%= album._id %>">
+                                    <a href="/artwork">
                                         <i class="fa fa-plus"></i>
-                                        Upload artwork
+                                        Browse artworks
                                     </a>
                                 </div>
                             </div>

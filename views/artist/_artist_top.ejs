@@ -44,9 +44,9 @@
                                         <% if(req.isOwner) { %>
                                         <li class="<%= req.url.includes("followers") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/followers">Followers</a></li>
                                         <% } %>    
-                                        <li class="<%= req.url.includes("about") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/about">About</a></li>
+                                        <li><a data-toggle="modal" data-target="#myModal">About</a></li>
                                     </ul>
-                                   
+                            
                                 </div>
                                 <div class="c-sub hidden-xs">
                                     <div class="c-sub-wrap">
@@ -86,4 +86,30 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">About <%= artist.name %></h4>
+      </div>
+      <div class="modal-body row">
+
+
+        <div class="col-md-8 text-center">Name:</div>
+        <div class="col-md-12 text-center"><strong><%= artist.name %></strong></div>
+
+        <div class="col-md-8 text-center">Email:</div>
+        <div class="col-md-12 text-center"><strong><%= artist.email %></strong></div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

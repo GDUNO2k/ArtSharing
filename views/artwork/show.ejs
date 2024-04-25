@@ -15,10 +15,7 @@
                     <img src="<%= artwork.path %>" alt="" class="img-responsive">
                 </div>
                 <h1><%= artwork.title  %></h1>
-                <div class="acide-panel acide-panel-top">
-                    <a href="/artwork/<%= artwork._id %>/watch-later"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
-                    <a href="/artwork/<%= artwork._id %>/like"><i class="cv cvicon-cv-liked" data-toggle="tooltip" data-placement="top" title="Liked"></i></a>
-                </div>
+              
                 <div class="author">
                     <div class="author-head">
                         <a href="/artist/<%= artwork.createdBy.email %>/show">
@@ -74,15 +71,13 @@
                             <% } %>
 
                             <div class="acide-panel hidden-xs">
-                                 <a href="#"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
-                                 
-                                 <% if(req.user && !artwork.likes.includes(req.user._id)) { %>
-                                    <a href="/artwork/<%= artwork._id %>/like">
-                                        <i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Like this post"></i>
-                                    </a>
-                                 <% } else if(req.user)  { %>
+                                 <% if(req.user && artwork.likes.includes(req.user._id)) { %>
                                     <a href="/artwork/<%= artwork._id %>/unlike" class="active">
                                         <i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Unlike this post"></i>
+                                    </a>
+                                 <% } else  { %>
+                                    <a href="/artwork/<%= artwork._id %>/like">
+                                        <i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Like this post"></i>
                                     </a>
                                  <% } %>
 
@@ -120,17 +115,16 @@
                                         
                                     </div>
                                 </div>
+                                <% if(artwork.forSale) { %>
                                 <div class="hidden-xs">
-                                    <h4>Game:</h4>
-                                    <p>Uncharted 4</p>
-                                    <a href="#">
-                                        <img src="/images/tab-1-img-1.jpg" alt="image">
+                                    <h4>Price: $ <%= artwork.price %></h4>
+                                    <p><span><i class="fa fa-check"></i> <%= artwork.buyers.length %> Sales</span></p>
+                                    <a>
+                                        <img src="/images/cart.jpg" alt="image">
                                     </a>
-                                    <a href="#" class="btn">Purchase</a>
+                                    <a href="/shop/<%= artwork._id %>/purchase" class="btn">Purchase</a>
                                 </div>
-                                <div class="clearfix"></div>
-                                <div class="showless hidden-xs" >
-                                </div>
+                                <% } %>
                             </div>
                             <!-- END tab-1 -->
 
@@ -138,64 +132,16 @@
                             <div class="tab-3">
                                 <h4>Download:</h4>
                                 <div class="tags-type2">
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>360P</a>
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>480P</a>
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>720P</a>
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>1080P</a>
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>UHD4K</a>
-                                    <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>Mobile</a>
+                                    <a href="<%= artwork.path %>" target="_blank" download="<%= artwork.path %>"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>Resized (w500px)</a>
+                                    <a href="/artwork/<%= artwork._id %>/download"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>Original (<%= artwork.originalSize %>)</a>
                                 </div>
                                 <label class="checkbox-text">
                                     <label class="checkbox">
-                                        <input type="checkbox" name="#">
+                                        <input type="checkbox" name="#" checked disabled>
                                         <span class="arrow"></span>
                                     </label>
-                                    <p>By Downloading this video I agree that I will not upload this video anywhere else without proper permission from the creator.</p>
+                                    <p>By Downloading this artwork I agree that I will not upload this video anywhere else without proper permission from the creator.</p>
                                 </label>
-                                <div class="tab-popup popup-download">
-                                    <div class="tab-popup-head">
-                                        <i class="cv cvicon-cv-download"></i>
-                                        <span>Download video</span>
-                                        <a href="#" class="tab-popup-close"><i class="cv cvicon-cv-cancel"></i></a>
-                                    </div>
-                                    <div class="tab-popup-content">
-                                        <div class="popup-download-load">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <a href="#">
-                                                        <i class="cv cvicon-cv-next"></i>
-                                                        <span>320P</span>
-                                                        <span>20.3 mb</span>
-                                                    </a>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <a href="#">
-                                                        <i class="cv cvicon-cv-next"></i>
-                                                        <span>480P</span>
-                                                        <span>43.5 mb</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <a href="#">
-                                                        <i class="cv cvicon-cv-next"></i>
-                                                        <span>720P</span>
-                                                        <span>120.9 mb</span>
-                                                    </a>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <a href="#" class="premium">
-                                                        <i class="cv cvicon-cv-next"></i>
-                                                        <span>1080P</span>
-                                                        <span>PREMIUM</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="popup-download-p">By Downloading this video I agree that I will not upload this video anywhere.</p>
-                                    </div>
-                                </div>
                             </div>
                             <!-- END tab-3 -->
 
@@ -204,56 +150,27 @@
                             <div class="tab-5">
                                 <h4>Add to Album:</h4>
                                 <div class="block-list">
+
                                     <% for(const album of albums) { %>
-                                    <div>
-                                        <a href="/artwork/<%= album._id %>/?album=<%= album._id %>">
-                                            <i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i>
-                                            <span class="name"><%= album.title %>></span>
-                                            <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
-                                        </a>
-                                    </div>
-                                    <% } %>
-                                    <div class="active">
-                                        <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Playlist"></i>
-                                        <span class="name">Review Videos</span>
-                                        <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
-                                    </div>
-                                    
-                                </div>
-                                <div class="tab-popup popup-add">
-                                    <div class="tab-popup-head">
-                                        <i class="cv cvicon-cv-plus"></i>
-                                        <span>Add to</span>
-                                        <a href="#" class="tab-popup-close"><i class="cv cvicon-cv-cancel"></i></a>
-                                    </div> 
-                                    <div class="tab-popup-content">
-                                        <div class="block-list">
-                                            <div>
-                                                <i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i>
-                                                <span class="name">Watch Later</span>
-                                                <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
+                                        <% if(!album.artworks.includes(artwork._id)) { %>    
+                                            <div class=""> 
+                                                <a href="/album/<%= album._id %>/add-artwork?artwork=<%= artwork._id %>">
+                                                    <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Album"></i>
+                                                    <span class="name"><%= album.title %></span>
+                                                    <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Album"></i>
+                                                </a>
                                             </div>
-                                            <div>
-                                                <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Playlist"></i>
-                                                <span class="name">Gameplay Playlist</span>
-                                                <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
-                                            </div>
+                                        <% } else { %>
                                             <div class="active">
-                                                <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Playlist"></i>
-                                                <span class="name">Review Videos</span>
-                                                <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
+                                                <a href="/album/<%= album._id %>/remove-artwork?artwork=<%= artwork._id %>">
+                                                    <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Album"></i>
+                                                    <span class="name"><%= album.title %></span>
+                                                    <i class="fa fa-times pull-right" data-toggle="tooltip" data-placement="top" title="Remove from Album"></i>
+                                                </a>
                                             </div>
-                                            <div>
-                                                <i class="cv cvicon-cv-playlist" data-toggle="tooltip" data-placement="top" title="Playlist"></i>
-                                                <span class="name">Tech Updates</span>
-                                                <i class="cv cvicon-cv-plus" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
-                                            </div>
-                                            <div>
-                                                <i class="cv cvicon-cv-add-to-playlist" data-toggle="tooltip" data-placement="top" title="Add to Playlist"></i>
-                                                <span class="name">Create New Playlist</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <% } %>
+                                    <% } %>
+
                                 </div>
                             </div>
                             <% } %>

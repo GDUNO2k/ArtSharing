@@ -13,13 +13,19 @@
                 <div class="content-block ">
                     <div class="cb-header">
                         <div class="row">
-                            <div class="col-lg-8 col-xs-6"></div>
+                            
+                            <div class="col-lg-8 col-xs-6">
+                                <h3 class="text-muted">Album: <%= album.title %></h3>
+                            </div>
                             <div class="col-lg-4 col-xs-6">
                                 <div class="btn-group pull-right bg-clean">
-                                    <a href="/album/<%= album._id %>/edit" class="btn btn-primary" style="padding: 5px 10px; margin-right: 15px">
-                                        <i class="fa fa-edit"></i>
-                                        Edit
-                                    </a>
+
+                                    <% if(req.isOwner) { %>
+                                        <a href="/album/<%= album._id %>/edit" class="btn btn-primary" style="padding: 5px 10px; margin-right: 15px">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                    <% } %>
                                     
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Album (<%= album.title %>)
@@ -38,8 +44,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 
                     <div class="channels-content">
                         <div class="clearfix"></div>
@@ -60,7 +64,13 @@
                             <% } %>
 
                             <% for(const artwork of artworks) { %>
-                                <%- include("../artwork/_artwork.ejs", {artwork}) %>
+                                <%- include("./_artwork.ejs", {artwork}) %>
+                            <% } %>
+
+                            <% if (artworks.length == 0) { %>
+                                <p class="text-center">
+                                    <em class="text-danger">No data.</em>
+                                </p>    
                             <% } %>
                         </div>
                     </div>

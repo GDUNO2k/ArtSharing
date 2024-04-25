@@ -5,9 +5,16 @@ const artworkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  path: {
+  path: { // resized image
     type: String,
     required: true,
+  },
+  pathOriginal: { // original size
+    type: String,
+    // required: true,
+  },
+  originalSize: {
+    type: String,
   },
   description: {
     type: String,
@@ -42,7 +49,21 @@ const artworkSchema = new mongoose.Schema({
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User'
     }
-  ]
+  ],
+  price: {
+    type: Number,
+    default: 0,
+  },
+  forSale: {
+    type: Boolean,
+    default: false,
+  },
+  buyers: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'User'
+    }
+  ],
 }, {timestamps: true});
 
 module.exports = mongoose.model("Artwork", artworkSchema);

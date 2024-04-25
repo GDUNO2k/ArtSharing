@@ -17,7 +17,7 @@ async function getUser(req, res, next) {
 function requireLogin(req, res, next) {
   
   if (!req.user) {
-    return res.redirect("/auth/login?url=" + req.url);
+    return res.redirect("/auth/login?ref=" + req.url);
   }
 
   next();

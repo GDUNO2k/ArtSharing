@@ -40,6 +40,18 @@ router.get("/artist/:email/following",
     artistController.findOrFail,
     artistController.following
 );
+router.get("/artist/:email/likes", 
+    artistController.findOrFail,
+    artistController.likes
+);
+router.get("/artist/:email/orders", 
+    artistController.findOrFail,
+    artistController.orders
+);
+router.get("/artist/:email/shop", 
+    artistController.findOrFail,
+    artistController.shop
+);
 
 // artworks
 const artworkController = require("../controllers/artwork.controller");
@@ -64,5 +76,9 @@ router.get("/category/:id/show", categoryController.show);
 router.get("/search", (req, res) => {
     res.render("search");
 });
+
+// shop
+const shopController = require("../controllers/shop.controller");
+router.get("/shop",shopController.index)
 
 module.exports = router;
