@@ -22,7 +22,7 @@
                             <img src="<%= artwork.createdBy.avatar %>" alt="" class="sv-avatar">
                         </a>
                         <div class="sv-name">
-                            <div><a href="#"><%= artwork.createdBy.name  %></a> . <%= artwork.createdBy.artworks.length %> Artworks</div>
+                            <div><a href="/artist/<%= artwork.createdBy.email %>/show"><%= artwork.createdBy.name  %></a> . <%= artwork.createdBy.artworks.length %> Artworks</div>
                             <div class="c-sub hidden-xs">
                                 <div class="c-f">
                                     Followers
@@ -186,6 +186,8 @@
                     </div>
 
                     <%- include('./_similla_category.ejs') %>
+                    <%- include('./_comments.ejs') %>
+
                 </div>
             </div>
 

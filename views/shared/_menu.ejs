@@ -14,7 +14,7 @@
           </div>
           <div class="col-lg-1 col-sm-2 col-xs-6">
             <a class="navbar-brand" href="/">
-              <img src="/images/logo.svg" alt="Project name" class="logo" />
+              <img src="/images/logo.svg" alt="Artwork sharing" class="logo" />
               <span>Circle</span>
             </a>
           </div>
@@ -31,16 +31,25 @@
               <div class="topsearch">
                 <i class="cv cvicon-cv-cancel topsearch-close"></i>
                 <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon2"
-                    ><i class="fa fa-search"></i
-                  ></span>
+                  <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"></i></span>
                   <input
                     type="text"
                     class="form-control"
                     placeholder="Search"
+                    name = "keyword"
                     aria-describedby="sizing-addon2"
                   />
+                  <select name="type">
+                    <option value="artwork">
+                      <i class="fa fa-image"></i> &#xf03e;  Artworks
+                    </option>
+                    <option value="artist">
+                      <i class="fa fa-user"></i> &#xf007; Artists
+                    </option>
+                  </select>
+
                   <div class="input-group-btn">
+<!-- 
                     <button
                       type="button"
                       class="btn btn-default dropdown-toggle"
@@ -48,9 +57,16 @@
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      <i class="cv cvicon-cv-video-file"></i
-                      >&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                      <i class="cv cvicon-cv-video-file"></i>&nbsp;&nbsp;&nbsp;<span class="caret"></span>
                     </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a><i class="fa fa-image"></i> Artworks</a>
+                      </li>
+                      <li>
+                        <a><i class="fa fa-user"></i> Artists</a>
+                      </li>
+                    </ul> -->
                   </div>
                   <!-- /btn-group -->
                 </div>

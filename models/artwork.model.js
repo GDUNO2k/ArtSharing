@@ -64,6 +64,12 @@ const artworkSchema = new mongoose.Schema({
       ref: 'User'
     }
   ],
+  comments: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Comment'
+    }
+  ],
 }, {timestamps: true});
 
 module.exports = mongoose.model("Artwork", artworkSchema);

@@ -3,6 +3,7 @@ const Artwork = require("../models/artwork.model");
 const Category = require("../models/category.model");
 const User = require("../models/user.model");
 const Album = require("../models/album.model");
+const Comment = require("../models/comment.model");
 const sharp = require("sharp");
 const path = require("path");
 const imageSize = require("image-size")
@@ -190,7 +191,10 @@ async function show(req,res) {
         isOwner = true; 
     }
 
-    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks, albums});
+    // comment
+    let comments = await Comment.find({_id: {$in: artwork.comments}}).sort({createdAt: -1}).populate("createdBy");
+
+    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks, albums, comments});
 }
 
 async function edit(req,res) {
@@ -309,6 +313,40 @@ async function download(req,res) {
     res.sendFile(path.resolve(req.artwork.pathOriginal));
 }
 
+const validateComment = [
+    check("content").trim().notEmpty().withMessage("Content is required"),
+];
+
+async function comment(req,res) {
+
+    // validate user data
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        req.flash.error("Content is required?");
+        return res.redirect(`/artwork/${req.artwork._id}/show#comments`);
+    }
+
+    const comment = new Comment({
+        content: req.body.content,
+        createdBy: req.user._id,
+        artwork: req.artwork._id
+    })
+
+    await comment.save();
+
+    //add to owner.artworks
+    await Artwork.findByIdAndUpdate(req.artwork._id, {
+        $push: {comments: comment._id}
+    });
+
+    req.flash.success("Comment successfully!");
+    
+    // redirect
+    res.redirect(`/artwork/${req.artwork._id}/show#comments`);
+}
+
+
 module.exports = {
     index,
 
@@ -322,6 +360,8 @@ module.exports = {
     like,
     unlike,
     download,
+    comment,
+    validateComment,
 
     requireOwner,
     edit,

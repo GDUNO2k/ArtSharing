@@ -75,6 +75,18 @@ router.get('/artwork/:id/download',
     artworkController.findOrFail,
     artworkController.download,
 );
+router.post('/artwork/:id/comment', 
+    artworkController.findOrFail,
+    artworkController.validateComment,
+    artworkController.comment,
+);
+
+const commentController = require("../controllers/comment.controller")
+router.post('/comment/:id/destroy', 
+    commentController.findOrFail,
+    commentController.requireOwner,
+    commentController.destroy,
+);
 
 // interact with artist
 const artistController = require("../controllers/artist.controller")

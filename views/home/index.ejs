@@ -4,330 +4,46 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <!-- Updates from Subscriptions -->
-        <div class="content-block">
-          <div class="cb-header">
-            <div class="row">
-              <div class="col-lg-10 col-sm-10 col-xs-10">
-                <ul class="list-inline">
-                  <li><a href="#">Updates from Subscriptions</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-2 col-sm-2 col-xs-2">
-                <div class="btn-group pull-right bg-clean">
-                  <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-relevant"></i> Relevant</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-calender"></i> Recent</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-view-stats"></i> Viewed</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-star"></i> Top Rated</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-watch-later"></i> Longest</a
-                      >
-                    </li>
+
+        <% if(req.user) { %>
+          <!-- Updates from Subscriptions -->
+          <div class="content-block">
+            <div class="cb-header">
+              <div class="row">
+                <div class="col-lg-10 col-sm-10 col-xs-10">
+                  <ul class="list-inline">
+                    <li><a>Updates from Subscriptions</a></li>
                   </ul>
                 </div>
-                <div class="clearfix"></div>
+                
+              </div>
+            </div>
+            <div class="cb-content avatars">
+              <div class="row">
+                <% for(const user of followings) { %>
+                <div class="col-lg-1 col-sm-2 col-xs-3">
+                  <a href="/artist/<%= user.email %>/show" title="<%= user.name %>">
+                    <img src="<%= user.avatar || '/images/Avatar.png' %>" alt="<%= user.name %>" />
+                  </a>
+                </div>
+                <% } %>
               </div>
             </div>
           </div>
-          <div class="cb-content avatars">
-            <div class="row">
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava2.png" alt="" />
-                  <div class="note">1</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava3.png" alt="" />
-                  <div class="note">03</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava4.png" alt="" />
-                  <div class="note">10</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava5.png" alt="" />
-                  <div class="note">56</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava6.png" alt="" />
-                  <div class="note">6</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava7.png" alt="" />
-                  <div class="note">25</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava8.png" alt="" />
-                  <div class="note">23</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava9.png" alt="" />
-                  <div class="note">16</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava10.png" alt="" />
-                  <div class="note">3</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava11.png" alt="" />
-                  <div class="note">6</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava12.png" alt="" />
-                  <div class="note">98</div></a
-                >
-              </div>
-              <div class="col-lg-1 col-sm-2 col-xs-3">
-                <a href="#"
-                  ><img src="images/ava1.png" alt="" />
-                  <div class="note">125</div></a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /Updates from Subscriptions -->
+          <!-- /Updates from Subscriptions -->
 
-        <!--new from subcription -->
-        <!-- new from subcription -->
+          <!--new from subcription -->
+          <%- include("./_from_subcription.ejs") %>
+          <!-- new from subcription -->
+        <% } %>
 
         <!--Popular artworks -->
         <%- include("./_popular_artworks.ejs") %>
         <!-- Popular artworks -->
 
-        <!-- Popular Playlists -->
-        <div class="content-block head-div head-arrow">
-          <div class="head-arrow-icon">
-            <i class="cv cvicon-cv-next"></i>
-          </div>
-          <div class="cb-header">
-            <div class="row">
-              <div class="col-lg-10 col-sm-10 col-xs-8">
-                <ul class="list-inline">
-                  <li>
-                    <a href="#" class="color-active">Popular Playlists</a>
-                  </li>
-                  <li><a href="#">Recently Featured</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-2 col-sm-2 col-xs-4">
-                <div class="btn-group pull-right bg-clean">
-                  <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Sort by <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-relevant"></i> Relevant</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-calender"></i> Recent</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-view-stats"></i> Viewed</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-star"></i> Top Rated</a
-                      >
-                    </li>
-                    <li>
-                      <a href="#"
-                        ><i class="cv cvicon-cv-watch-later"></i> Longest</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <div class="cb-content">
-            <div class="row">
-              <div class="col-lg-3 col-sm-6 col-xs-12">
-                <div class="b-playlist">
-                  <div class="v-img">
-                    <img src="images/video1-1.png" alt="" class="l-1" />
-                    <img src="images/video1-2.png" alt="" class="l-2" />
-                    <a href="single-video-tabs.html"
-                      ><img src="images/playlist-1.png" alt="" class="l-3"
-                    /></a>
-                    <div class="items">20</div>
-                  </div>
-                  <div class="v-desc">
-                    <a href="#"
-                      >There Can Only Be One! Introducing Tanc & Hercules</a
-                    >
-                  </div>
-                  <div class="v-views">
-                    127,548 views.
-                    <span class="v-percent"
-                      ><span class="v-circle"></span> 78%</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-sm-6 col-xs-12">
-                <div class="b-playlist">
-                  <div class="v-img">
-                    <img src="images/video2-1.png" alt="" class="l-1" />
-                    <img src="images/video2-2.png" alt="" class="l-2" />
-                    <a href="single-video-tabs.html"
-                      ><img src="images/playlist-2.png" alt="" class="l-3"
-                    /></a>
-                    <div class="items">15</div>
-                  </div>
-                  <div class="v-desc">
-                    <a href="#"
-                      >Pokémon 3: The Movie - Spell Of The Unown: Entei HD...</a
-                    >
-                  </div>
-                  <div class="v-views">
-                    18,241,542 views.
-                    <span class="v-percent"
-                      ><span class="v-circle"></span> 93%</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-sm-6 col-xs-12">
-                <div class="b-playlist">
-                  <div class="v-img">
-                    <img src="images/video2-6.png" alt="" class="l-1" />
-                    <img src="images/video2-4.png" alt="" class="l-2" />
-                    <a href="single-video-tabs.html"
-                      ><img src="images/playlist-3.png" alt="" class="l-3"
-                    /></a>
-                    <div class="items">7</div>
-                  </div>
-                  <div class="v-desc">
-                    <a href="#"
-                      >Bullet Trains and Octopus Balls in South Korea</a
-                    >
-                  </div>
-                  <div class="v-views">
-                    729,347 views .
-                    <span class="v-percent"
-                      ><span class="v-circle"></span> 95%</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-sm-6 col-xs-12">
-                <div class="b-playlist">
-                  <div class="v-img">
-                    <img src="images/video1-6.png" alt="" class="l-1" />
-                    <img src="images/video1-4.png" alt="" class="l-2" />
-                    <a href="single-video-tabs.html"
-                      ><img src="images/playlist-4.png" alt="" class="l-3"
-                    /></a>
-                    <div class="items">27</div>
-                  </div>
-                  <div class="v-desc">
-                    <a href="#"
-                      >Top 10 NEW 3DS Games Of 2016 that blew our mind</a
-                    >
-                  </div>
-                  <div class="v-views">
-                    79,239,852 views.
-                    <span class="v-percent"
-                      ><span class="v-circle"></span> 84%</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /Popular Playlists -->
-
         <!-- Popular Artist -->
         <%- include("./_popular_artists.ejs") %>
         <!-- /Popular Artist -->
-
-        <!-- pagination -->
-        <div class="v-pagination">
-          <ul class="list-inline">
-            <li class="v-pagination-prev">
-              <a href="#"><i class="cv cvicon-cv-previous"></i></a>
-            </li>
-            <li class="v-pagination-first"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">10</a></li>
-            <li class="v-pagination-skin visible-xs">
-              <a href="#">Skip 5 Pages</a>
-            </li>
-            <li class="v-pagination-next">
-              <a href="#"><i class="cv cvicon-cv-next"></i></a>
-            </li>
-          </ul>
-        </div>
-        <!-- /pagination -->
       </div>
     </div>
   </div>

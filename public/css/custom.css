@@ -8,9 +8,20 @@
     padding-right: 30px;
 }
 
+.my-3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .c-avatar img {
     max-width: 176px;
     max-height: 157px;
+}
+
+.avatar img {
+    width: 100%;
+    border-radius: 100%;
+    border: 1px solid #ea2c5a;
 }
 
 .btn-outline-primary {
@@ -93,4 +104,58 @@
 
 .b-playlist img {
     max-height: 155px;
+}
+
+/* checkout */
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-large {
+    font-size: x-large;
+}
+
+.order-sumary {
+    background-color: #ccc;
+}
+
+.order-sumary .img {
+    display: flex;
+    justify-content: center;
+}
+
+.order-sumary img {
+    max-height: 386px;
+}
+
+.order-sumary button {
+    width: 100%;
+}
+
+.input-card-number {
+    position: relative;
+}
+
+.input-card-number .icons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: x-large;
+}
+
+/* top search */
+.topsearch select {
+    font-family: fontAwesome;
+    padding: 0 15px;
+    background-color: #eceff0;
+    border: none;
+}
+
+.shop img {
+    max-width: 48px;
+    max-height: 48px;
+    border-radius: 100%;
+    margin-right: 10px;
 }

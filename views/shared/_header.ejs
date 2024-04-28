@@ -24,6 +24,9 @@
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/font-awesome.min.css" rel="stylesheet" />
     <link href="/css/font-circle-video.css" rel="stylesheet" />
+    <!-- toastr notification -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <link href="/css/custom.css" rel="stylesheet" />
 
     <!-- font-family: 'Hind', sans-serif; -->
@@ -150,6 +153,7 @@
     </div>
 
     <!-- goto -->
+    <% if(req.user) { %>
     <div class="container-fluid">
       <div class="row">
         <div class="navbar-container2">
@@ -183,5 +187,6 @@
         </div>
       </div>
     </div>
+    <% } %>
     <!-- /goto -->
- <%- include("./_flash.ejs") %>
+

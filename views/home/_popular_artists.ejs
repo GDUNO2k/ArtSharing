@@ -1,7 +1,4 @@
 <div class="content-block head-div head-arrow">
-    <div class="head-arrow-icon">
-    <i class="cv cvicon-cv-next"></i>
-    </div>
     <div class="cb-header">
     <div class="row">
         <div class="col-lg-10 col-sm-10 col-xs-8">
@@ -13,7 +10,7 @@
         </div>
         <div class="col-lg-2 col-sm-2 col-xs-4">
         <div class="btn-group pull-right bg-clean">
-            <a href="/artist" type="button" class="btn btn-default">
+            <a href="/artist?sort=popular" type="button" class="btn btn-default">
             More <span class="fa fa-caret-right"></span>
         </a>
         </div>
@@ -29,10 +26,10 @@
             <a href="/artist/<%= artist._id %>">
             <!-- if avatar -->
             <% if(artist.avatar) { %>
-            <img src="<%= artist.avatar %>" alt="" />
+            <img src="<%= artist.avatar %>" alt="" class="img-responsive"  />
             <!-- else  -->
             <% } else { %>
-            <img src="images/chanel-1.png" alt="" />
+            <img src="/images/Avatar.png" alt="" class="img-responsive" />
             <% } %>
 
             <div class="hover">

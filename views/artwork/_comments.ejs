@@ -1,0 +1,52 @@
+<div class="single-v-footer">
+    <!-- comments -->
+    <div class="comments" id="comments">
+        <div class="reply-comment">
+            <div class="rc-header"><i class="cv cvicon-cv-comment"></i> <span class="semibold"><%= artwork.comments.length %></span> Comments</div>
+
+            <% if(!req.user) { %>
+            <div class="loadmore-comments">
+                <a href="/auth/login?ref=<%= req.url %>#comments" class="btn btn-default h-btn">Login to comment</a>
+            </div>
+            <% } else { %>
+            <div class="rc-ava"><a ><img src="<%= req.user.avatar || '/images/Avatar.png' %>" alt=""></a></div>
+            <div class="rc-comment">
+                <form action="/artwork/<%= artwork._id %>/comment" method="post">
+                    <textarea rows="3" placeholder="what you think?" name="content"></textarea>
+                    <button type="submit">
+                        <i class="cv cvicon-cv-add-comment"></i>
+                    </button>
+                </form>
+            </div>
+            <% } %>
+            <div class="clearfix"></div>
+        </div>
+        <div class="comments-list">
+            <div class="cl-header">
+                <div class="c-nav">
+                    <ul class="list-inline">
+                        <li><a>Newest <span class="hidden-xs">Comments</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <% for(const comment of comments) { %>
+                <!-- comment -->
+                <div class="cl-comment">
+                    <div class="cl-avatar"><a href="/artist/<%= comment.createdBy.email %>/show"><img src="<%= comment.createdBy.avatar || '/images/Avatar.png' %>" alt=""></a></div>
+                    <div class="cl-comment-text">
+                        <div class="cl-name-date"><a href="/artist/<%= comment.createdBy.email %>/show"><%= comment.createdBy.name %></a> . <%= moment(comment.createdAt).fromNow() %></div>
+                        <div class="cl-text"><%= comment.content %></div>
+                        <div class="cl-meta text-right">
+                            <form method="post" action="/comment/<%= comment._id %>/destroy">
+                                <button type="submit" onclick="return confirm('Are you sure want to delete?');">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- END comment -->
+            <% } %>            
+        </div>
+    </div>
+    <!-- END comments -->
+</div>

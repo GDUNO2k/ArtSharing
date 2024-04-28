@@ -5,15 +5,15 @@
                 <ul class="list-inline">
                     <li>
                         <a href="#" class="color-active">
-                            <span class="visible-xs">Popular</span>
-                            <span class="hidden-xs">Popular artworks</span>
+                            <span class="visible-xs">From subcription</span>
+                            <span class="hidden-xs">From subcription</span>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-2 col-sm-2 col-xs-4">
                 <div class="btn-group pull-right bg-clean">
-                    <a href="/artwork?sort=popular" class="btn btn-default">
+                    <a href="/artwork" class="btn btn-default">
                         More <span class="fa fa-caret-right"></span>
                     </a>
                 </div>
@@ -24,7 +24,7 @@
 </div>
 <div class="cb-content videolist">
     <div class="row">
-        <% for(const artwork of artworks) { %>
+        <% for(const artwork of followingArtworks) { %>
         <%- include("../artwork/_artwork.ejs", {artwork}) %>
         <% } %>
     </div>

@@ -22,20 +22,24 @@
                     </a>
                 <% } %>
             </div>
-
         </div> 
         <div class="v-views">
             <i class="fa fa-eye"></i> <%= artwork.noViews %> Views 
             <span style="margin-left: 15px"><i class="fa fa-heart"></i> <%= artwork.likes.length %> Likes</span>
             <div class="for-sale">
-                <span><i class="fa fa-check"></i> <%= artwork.buyers.length %> Sales</span>
-    
+                <div class="d-flex shop">
+                    <img src="<%= artwork.createdBy.avatar || '' %>" alt="" class="img-responsive">
+                    <div>
+                        <a href=""><%= artwork.createdBy.name %></a>
+                        <br>
+                        <%= artwork.createdBy.artworks.length %> Artworks 
+                    </div>
+                </div>
                 <div class="pull-right">
                     <span class="price">$<%= artwork.price %></span>
+                    <div><i class="fa fa-check"></i> <%= artwork.buyers.length %> Sales</div>
                 </div>
             </div>
         </div>
-        
-
     </div>
 </div>

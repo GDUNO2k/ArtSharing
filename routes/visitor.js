@@ -7,6 +7,10 @@ const User = require('../models/user.model');
 const homeController = require('../controllers/home.controller');
 router.get("/", homeController.index);
 
+// search
+const searchController = require('../controllers/search.controller');
+router.get("/search", searchController.index);
+
 /* ------------ auth routes */
 const authController = require('../controllers/auth.controller');
 
@@ -72,10 +76,6 @@ router.get('/album/:id/show',
 const categoryController = require("../controllers/category.controller")
 router.get("/category", categoryController.index);
 router.get("/category/:id/show", categoryController.show);
-
-router.get("/search", (req, res) => {
-    res.render("search");
-});
 
 // shop
 const shopController = require("../controllers/shop.controller");
