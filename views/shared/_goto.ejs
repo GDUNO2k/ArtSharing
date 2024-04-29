@@ -1,0 +1,63 @@
+<!-- goto -->
+    <% if(req.user) { %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="navbar-container2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-1 col-sm-2 hidden-xs">
+                <div class="goto">Go to:</div>
+              </div>
+              <div class="col-lg-3 col-sm-10 col-xs-12">
+                <div class="h-icons">
+                  <a href="/artist/<%= req.user.email %>/likes"
+                    ><i
+                      class="cv cvicon-cv-liked"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Liked Artworks"
+                    ></i
+                  ></a>
+                  <a href="/artist/<%= req.user.email %>/orders"
+                    ><i
+                      class="cv cvicon-cv-purchased"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Purchased Artworks"
+                    ></i
+                  ></a>
+                </div>
+              </div>
+              
+              <% if (req.user && req.user.role == 'admin') { %>
+              <div class="col-lg-3">
+                <div class="btn-group pull-right dropdown">
+                    <button
+                        class="btn btn-default dropdown-toggle" style="background-color: #ea2c5a; color: white"
+                        type="button"
+                        id="dropdownMenu1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="true"
+                    >
+                        Admin space
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="/admin/dashboard">Dashboard</a></li>
+                      <li><a href="/admin/order">Manage orders</a></li>
+                        <li><a href="/admin/artwork">Manage artworks</a></li>
+                        <li><a href="/admin/user">Manage users</a></li>
+                        <li><a href="/admin/category">Manage categories</a></li>
+                    </ul>
+                </div>
+              </div>
+              <% } %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <!-- /goto -->

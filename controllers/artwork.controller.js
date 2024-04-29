@@ -14,8 +14,6 @@ async function index(req,res) {
 
     const query = Artwork.find();
 
-    // TODO: popular
-
     // filter by title
     if (req.query.keyword) { 
         query.where({ title: { $regex: req.query.keyword, $options: 'i' } })
@@ -24,6 +22,17 @@ async function index(req,res) {
     // filter by category
     if (req.query.category) { 
         query.where({category: req.query.category })
+    }
+
+    // sort
+    if (req.query.sort || "popular") {
+        switch(req.query.sort) {
+            case "recent": 
+                query.sort({createdAt: -1});
+                break;
+            default: // default popular
+                query.sort({likes: -1, noViews: -1});
+        }
     }
 
     // pagination
@@ -182,6 +191,9 @@ async function show(req,res) {
         { $sample: { size: 3 } }
     ]);
 
+    // popular artworks
+    const popularArtworks = await Artwork.find().sort({likes: -1, noViews: -1}).limit(8);
+
     // increase no. views
     artwork.noViews++;
     await artwork.save();
@@ -194,7 +206,7 @@ async function show(req,res) {
     // comment
     let comments = await Comment.find({_id: {$in: artwork.comments}}).sort({createdAt: -1}).populate("createdBy");
 
-    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks, albums, comments});
+    return res.render("artwork/show", {artwork, isOwner, similarCategoryArtworks, similarArtistArtworks, popularArtworks, albums, comments});
 }
 
 async function edit(req,res) {

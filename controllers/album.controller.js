@@ -45,7 +45,7 @@ async function store(req,res) {
     req.flash.success("Created successfully!");
     
     // redirect
-    res.redirect(`/artist/${req.user.email}/album/${album._id}`);
+    res.redirect(`/album/${album._id}/show`);
 }
 
 // req.album
@@ -79,6 +79,8 @@ async function show(req,res) {
     const artist = album.createdBy;
     const albums = await Album.find({_id: {$in: artist.albums}});
     const artworks = await Artwork.find({_id: {$in: album.artworks}}).populate("category").exec();
+
+    req.artist = artist;
 
     return res.render("album/show", {artist, album, artworks, albums});
 }

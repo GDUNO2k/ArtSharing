@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  
+  artist: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'User'
+  },
+
   buyer: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User'

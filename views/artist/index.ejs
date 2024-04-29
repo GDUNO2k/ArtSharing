@@ -11,9 +11,11 @@
               <div class="col-lg-8 col-sm-8 col-xs-10">
                 <ul class="list-inline">
                   <li>
-                    <a href="#" class="color-active">Most Popular</a>
+                    <a href="?sort=popular" class="<%= req.url.includes("recent") ? "" : "color-active" %>">Most Popular</a>
                   </li>
-                  <li class="hidden-xs"><a href="#">Most Recent</a></li>
+                  <li class="hidden-xs">
+                    <a href="?sort=recent" class="<%= req.url.includes("recent") ? "color-active" : "" %>">Most Recent</a>
+                  </li>
                 </ul>
               </div>
               <div class="col-lg-4 col-sm-4 col-xs-2">

@@ -8,14 +8,7 @@
                 <img src="/images/channel-banner.png" alt="" class="c-banner">
             </div>
             <div class="c-avatar">
-                <img src="/images/logo.svg" alt="">
-            </div>
-            <a href="#" class="add"><i class="cv cvicon-cv-plus"></i></a>
-            <div class="c-social hidden-xs">
-                Social
-                <a href="#" class="fb"><i class="fa fa-
-                    facebook"></i></a>
-                <a href="#" class="tw"><i class="fa fa-twitter"></i></a>
+                <img src="<%= req.artist.avatar || '/images/Avatar.png' %>" alt="">
             </div>
         </div>
     </div>
@@ -43,6 +36,7 @@
                                         <li class="<%= req.url.includes("following") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/following">Following</a></li>
                                         <% if(req.isOwner) { %>
                                         <li class="<%= req.url.includes("followers") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/followers">Followers</a></li>
+                                        <li class="<%= req.url.includes("order") ? "color-active" : "" %>"><a href="/artist/<%= artist.email %>/order">Order</a></li>
                                         <% } %>    
                                         <li><a data-toggle="modal" data-target="#myModal">About</a></li>
                                     </ul>

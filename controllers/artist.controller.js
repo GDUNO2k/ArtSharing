@@ -11,8 +11,18 @@ async function index (req, res) {
     if (req.query.keyword) { 
         query.where({ name: { $regex: req.query.keyword, $options: 'i' } })
     }
-    
 
+    // sort
+    if (req.query.sort || "popular") {
+        switch(req.query.sort) {
+            case "recent": 
+                query.sort({createdAt: -1});
+                break;
+            default: // default popular
+                query.sort({followers: -1});
+        }
+    }
+    
     // pagination
     req.pagination.perPage = 8;
     const totalResults = await query.clone().countDocuments();
@@ -94,7 +104,7 @@ async function likes(req, res) {
 async function orders(req, res) { 
     const artist = req.artist;
 
-    const orders = await Order.find({_id: {$in: req.artist.orders}}).exec();
+    const orders = await Order.find({_id: {$in: req.artist.orders}}).populate('artist').exec();
 
     res.render("artist/orders", {artist, orders}) ;
 }
@@ -174,6 +184,41 @@ async function shop(req,res) {
     res.render("artist/shop", {artist, artworks}) ;
 }
 
+async function requireOwner (req,res,next) {
+    if(!req.isOwner) {
+        return res.redirect('/unauthorized')
+    }
+
+    next();
+}
+
+async function viewMyOrder(req,res){
+
+    const users = await User.find();
+    const artworks = await Artwork.find({_id: {$in: req.user.artworks}, forSale: true});
+    const query = Order.find({artist: req.user});
+
+    // filter by artist
+    if (req.query.artwork) {
+        query.where({artwork: req.query.artwork})
+    }
+        // filter by buyer
+    if (req.query.buyer) {
+        query.where({buyer: req.query.buyer })
+    }
+
+    // pagination
+    req.pagination.perPage = 8;
+    const totalResults = await query.clone().countDocuments();
+    req.pagination.numPages = Math.ceil(totalResults/req.pagination.perPage);
+
+    query.skip((req.pagination.page-1) * req.pagination.perPage).limit(req.pagination.perPage);
+
+    const orders = await query.populate('buyer').populate('artwork').sort({ createdAt: -1 }).exec();
+
+    res.render('shop/myorder', {orders, users, artworks})
+}
+
 module.exports = {
     index,
     findOrFail,
@@ -188,6 +233,8 @@ module.exports = {
     following,
     followers,
 
-    shop
+    shop,
+    viewMyOrder,
+    requireOwner,
 
 }

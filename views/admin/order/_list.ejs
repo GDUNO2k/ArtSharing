@@ -1,0 +1,77 @@
+<div class="content-block">
+          
+          <div class="cb-content">
+            <h1> All Orders</h1>
+
+            <form action="" method="get" class="py-3">
+              <div class="form-group row">
+                <div class="col-md-3">
+                  <select name="artist" class="form-control">
+                    <option value="">--All Artists--</option>
+                    <% for(const user of users) { %>
+                      <option value="<%=user._id %>" <%= user._id.toString() == req.query.artist ? "selected":"" %>><%= user.name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select name="buyer" class="form-control">
+                    <option value="">--All Buyers--</option>
+                    <% for(const user of users) { %>
+                      <option value="<%=user._id %>" <%= user._id.toString() == req.query.buyer ? "selected":"" %>><%= user.name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+                <a href="/admin/order" class="btn btn-<%= Object.keys(req.query).length ? "danger" : "default" %>">Reset Filter</a>
+              </div>
+            </form>
+
+            <table class="table table-bordered table-striped table-hover">
+              <tr>
+                <th width="100">Artwork</th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Buyer</th>
+                <th>Price</th>
+                <th>Created At</th>
+              </tr>
+              
+              <% for(const order of orders) { %>
+                <tr>
+                  <td>
+                    <img src="<%= order.artwork.path %>" class="img-responsive">
+                  </td>
+                  <td>
+                      <%= order.artwork.title %>
+                  </td>
+                  <td>                    
+                    <a href="?artist=<%= order.artist._id %>">
+                      <%= order.artist.name %>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="?buyer=<%= order.buyer._id %>">
+
+                      <%= order.buyer.name %>
+                    </a>
+                  </td>
+                  <td><%= order.price%></td>
+                  <td><%= order.createdAt %></td>
+                </tr>
+              <% } %>
+
+            </table>
+
+            
+            <% if (orders.length == 0) { %>
+              <p class="text-center">
+                <em class="text-danger">No data.</em>
+              </p>
+              <% } else { %>
+                
+                <%- include("../../shared/_pagination.ejs")  %>
+              
+              <% } %>
+        </div>
+      </div>

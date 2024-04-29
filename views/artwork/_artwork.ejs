@@ -3,6 +3,12 @@
         <div class="v-img">
             <a href="/artwork/<%= artwork._id %>/show">
                 <img src="<%= artwork.path %>" alt="" />
+
+                <% if (artwork.forSale) { %>
+                <div class="pull-right sale-price">
+                    $<%= artwork.price %>
+                </div>
+                <% } %>
             </a>
             <div class="time"><%= artwork.category.name %></div>
         </div>

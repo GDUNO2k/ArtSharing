@@ -159,3 +159,22 @@
     border-radius: 100%;
     margin-right: 10px;
 }
+
+/*  */
+.v-img {
+    position: relative;
+}
+
+.sale-price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ea2c5a;
+    padding: 15px;
+    color: white;
+}
+
+.c-avatar img {
+    border-radius: 100%;
+    border: 1px solid #ea2c5a;
+}

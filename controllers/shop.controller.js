@@ -14,8 +14,6 @@ async function index(req,res) {
 
     const query = Artwork.find({forSale: true});
 
-    // TODO: popular
-
     // filter by title
     if (req.query.keyword) { 
         query.where({ title: { $regex: req.query.keyword, $options: 'i' } })
@@ -24,6 +22,17 @@ async function index(req,res) {
     // filter by category
     if (req.query.category) { 
         query.where({category: req.query.category })
+    }
+
+    // sort
+    if (req.query.sort || "popular") {
+        switch(req.query.sort) {
+            case "recent": 
+                query.sort({createdAt: -1});
+                break;
+            default: // default popular
+                query.sort({likes: -1, noViews: -1});
+        }
     }
 
     // pagination
@@ -84,6 +93,7 @@ async function handlePurchase(req,res) {
 
     const order = new Order({
         buyer: req.user._id,
+        artist: req.artwork.createdBy,
         artwork: req.artwork._id,
         title: artwork.title,
         pathOriginal: artwork.pathOriginal,
@@ -102,7 +112,10 @@ async function handlePurchase(req,res) {
     req.user.orders.addToSet(order._id);
     await req.user.save();
 
-    return res.render("shop/purchase", {artwork});
+    //
+    req.flash.success("Purchase succesfully!")
+
+    return res.redirect(`/artwork/${artwork._id}/show`);
 }
 
 

@@ -55,6 +55,12 @@ router.post("/admin/artwork/:id/unhide",
     artworkController.findOrFail,
     artworkController.unhide)
 
+//Manage order
+const orderController = require('../controllers/admin/order.controller');
+router.get("/admin/order", 
+    orderController.index
+)
+
 //Manage user
 const userController = require('../controllers/admin/user.controller');
 router.get("/admin/user", 

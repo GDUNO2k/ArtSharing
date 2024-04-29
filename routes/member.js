@@ -100,7 +100,14 @@ router.get('/artist/:email/unfollow',
 );
 router.get('/artist/:email/followers', 
     artistController.findOrFail,
+    artistController.requireOwner,
     artistController.followers,
+);
+
+router.get('/artist/:email/order',
+    artistController.findOrFail,
+    artistController.requireOwner,
+    artistController.viewMyOrder,
 );
 
 // album
@@ -149,6 +156,8 @@ router.post('/shop/:id/purchase',
     shopController.findOrFail,
     shopController.handlePurchase,
 );
+
+
 
 // manage orders (bought artworks)
 
