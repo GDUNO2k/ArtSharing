@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const User = require("../models/user.model");
 const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 
 // show edit profile form
 async function editProfile(req, res) {
@@ -50,9 +51,10 @@ const validatePassword = [
   check('cr_password')
     .notEmpty()
     .withMessage("Current password is required")
-    .custom((value, { req })=>{
-      console.log(value);
-      if(value != req.user.password) {
+    .custom(async (value, { req })=>{
+      const verified = await bcrypt.compare(value, req.user.password);
+
+      if(!verified) {
         throw new Error("Wrong password!");
       }
 
@@ -85,11 +87,16 @@ async function updatePassword(req, res) {
     return res.render("user/change-password", { errors: errors.mapped() });
   }
 
-  req.user.password = req.body.password;
+  // hashpassword
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
+
+  req.user.password = hashPassword;
   await req.user.save();
 
   req.flash.success("Change password success");
-  res.redirect("/auth/logout")
+
+
+  res.redirect("/auth/logout?success=Change password success")
 }
 
 //

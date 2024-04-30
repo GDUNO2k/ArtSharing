@@ -25,7 +25,7 @@
                                         <i class="fa fa-search"></i>
                                     </div>
                                     <div class="col-md-4">
-                                        <select name="category" class="form-control" style="padding: 0 15px">
+                                        <select name="category" class="form-control input-filter">
                                             <option value="">--All Categories--</option>
                                             <% for(const category of categories) { %>
                                             <option value="<%= category._id %>" <%= category._id.toString() == req.query.category ? "selected":"" %>><%= category.name %></option>

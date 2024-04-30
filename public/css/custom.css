@@ -19,9 +19,29 @@
 }
 
 .avatar img {
-    width: 100%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
     border-radius: 100%;
     border: 1px solid #ea2c5a;
+}
+
+.avatars a img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.b-chanel img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+}
+
+.channel .img .c-avatar img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
 }
 
 .btn-outline-primary {
@@ -177,4 +197,33 @@
 .c-avatar img {
     border-radius: 100%;
     border: 1px solid #ea2c5a;
+}
+
+/* statistic card */
+.stats {
+    border: 1px solid #ea2c5a;
+    text-align: center;
+}
+
+.bg-circle {
+
+    background-color: #ea2c5a;
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    border-radius: 100%;
+}
+
+.bg-circle .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    height: 100%;
+}
+
+/* form filter */
+.input-filter {
+    padding: 0 15px;
 }

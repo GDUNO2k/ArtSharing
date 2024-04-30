@@ -6,7 +6,7 @@
             <form action="" method="get" class="py-3">
               <div class="form-group row">
                 <div class="col-md-3">
-                  <select name="artist" class="form-control">
+                  <select name="artist" class="form-control input-filter">
                     <option value="">--All Artists--</option>
                     <% for(const user of users) { %>
                       <option value="<%=user._id %>" <%= user._id.toString() == req.query.artist ? "selected":"" %>><%= user.name %></option>
@@ -14,7 +14,7 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <select name="buyer" class="form-control">
+                  <select name="buyer" class="form-control input-filter">
                     <option value="">--All Buyers--</option>
                     <% for(const user of users) { %>
                       <option value="<%=user._id %>" <%= user._id.toString() == req.query.buyer ? "selected":"" %>><%= user.name %></option>

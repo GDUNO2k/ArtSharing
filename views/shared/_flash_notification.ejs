@@ -17,6 +17,10 @@
     "hideMethod": "fadeOut"
   }
 
+  <% if(req.query.success) { %>
+    toastr["success"]("<%= req.query.success %>");
+  <% } %>
+
   <% if (req.flash) { %>
       <% for (const message of req.flash.popAll()) { %>
           <% if (message.type == 'success') { %>

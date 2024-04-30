@@ -1,6 +1,7 @@
 
 const User = require("../models/user.model");
 const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 
 // show form to register
 function register(req, res) {
@@ -59,12 +60,17 @@ async function handleRegister (req, res) {
   // get user data
   const { name, email, password } = req.body;
 
+  // 
+  const hashPassword = await bcrypt.hash(password, 10);
+
   // save user into db
-  const user = new User({ name, email, password });
+  const user = new User({ name, email, password: hashPassword });
   await user.save();
 
+  req.flash.success("Register Successfully!")
+
   // redirect login with message
-  return res.redirect("/login");
+  return res.redirect("/auth/login");
 };
 
 // show login form
@@ -102,14 +108,20 @@ async function handleLogin(req, res) {
   }
 
   // login user
-  // find user with email, password
+  // find user with email
   const user = await User.findOne({
-    email: req.body.email,
-    password: req.body.password,
+    email: req.body.email
   });
   if (!user) {
     req.flash.error('Invalid email or password!');
  
+    return res.render("auth/login", { errors });
+  }
+
+  // check password
+  const verified = await bcrypt.compare(req.body.password, user.password);
+  if(!verified) {
+    req.flash.error('Invalid email or password!');
     return res.render("auth/login", { errors });
   }
 
@@ -134,6 +146,11 @@ async function handleLogin(req, res) {
 // logout
 function logout (req, res) {
   req.session.destroy();
+
+  if (req.query.success) {
+      return res.redirect("/auth/login?success=" + req.query.success);
+  }
+
   res.redirect("/auth/login");
 };
 

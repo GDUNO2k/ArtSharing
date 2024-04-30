@@ -20,6 +20,12 @@ const storage = multer.diskStorage({
 // Set up multer middleware
 const upload = multer({ storage: storage });
 
+//Dashboard
+const dashboardController = require('../controllers/admin/dashboard.controller');
+router.get("/admin/dashboard", 
+    dashboardController.index
+)
+
 // manage categories
 const categoryController = require('../controllers/admin/category.controller');
 router.get("/admin/category", categoryController.index)

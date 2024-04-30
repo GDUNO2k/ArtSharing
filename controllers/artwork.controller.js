@@ -109,7 +109,7 @@ async function store(req,res) {
 
     artwork.pathOriginal = "public/uploads/"+ req.file.filename;
     const {width, height} = imageSize(req.file.path);
-    artwork.originalSize = (width + "-" + height)
+    artwork.originalSize = (width + "x" + height+"px")
 
     // -- resize
     artwork.path = "--";
@@ -317,6 +317,10 @@ async function destroy(req,res) {
 }
 
 async function download(req,res) {
+
+    const check = (req.artwork.buyers.includes(req.user._id) || req.artwork.createdBy == req.user._id)
+    if(!check) return res.redirect("/unauthorized")
+
     const filename = req.artwork._id + path.extname(req.artwork.pathOriginal);
 
     res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"');
